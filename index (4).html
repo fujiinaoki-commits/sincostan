@@ -1,0 +1,2568 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三角関数マスター</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+  :root {
+    --bg:#EEF2FF; --card:#FFFFFF; --primary:#4361EE; --secondary:#7209B7;
+    --accent:#F77F00; --success:#06D6A0; --danger:#EF233C;
+    --text:#10002B; --muted:#6B7280; --border:#C7D2FE;
+    --shadow:0 4px 24px rgba(67,97,238,0.10);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:76px}
+  .app{max-width:560px;margin:0 auto;padding:16px 14px 0}
+  /* Tabs */
+  .tabbar{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,0.96);backdrop-filter:blur(16px);border-top:1.5px solid var(--border);display:flex;justify-content:center;box-shadow:0 -4px 20px rgba(67,97,238,0.08);z-index:100}
+  .tabbar-inner{display:flex;max-width:560px;width:100%}
+  .tab-btn{flex:1;display:flex;flex-direction:column;align-items:center;padding:9px 4px 11px;border:none;background:transparent;cursor:pointer;gap:3px;border-top:3px solid transparent;transition:border-color .15s}
+  .tab-btn.active{border-top-color:var(--primary)}
+  .tab-btn .ico{font-size:20px}
+  .tab-btn .lbl{font-size:9.5px;font-weight:400;color:var(--muted)}
+  .tab-btn.active .lbl{font-weight:700;color:var(--primary)}
+  /* Panels */
+  .panel{display:none;animation:fadeIn .2s ease}
+  .panel.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  /* Card */
+  .card{background:var(--card);border-radius:16px;padding:18px;box-shadow:var(--shadow);border:1px solid var(--border);margin-bottom:14px}
+  .card-title{font-weight:700;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}
+  /* Hero */
+  .hero{background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);border-radius:20px;padding:22px 20px 18px;color:white;box-shadow:0 8px 32px rgba(67,97,238,0.35);margin-bottom:14px;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;right:-30px;top:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,0.08)}
+  .hero::after{content:'';position:absolute;right:30px;bottom:-40px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,0.06)}
+  .hero h1{font-size:22px;font-weight:900;letter-spacing:-.02em}
+  .hero p{font-size:13px;opacity:.8;margin-top:4px}
+  /* Daily */
+  .daily-card{background:linear-gradient(135deg,#FFFBEB,#FFF3CD);border:2px solid var(--accent);border-radius:18px;padding:18px;margin-bottom:14px;box-shadow:0 4px 16px rgba(247,127,0,0.15)}
+  .daily-header{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+  .daily-header .badge{background:var(--accent);color:white;border-radius:20px;padding:3px 12px;font-size:12px;font-weight:700}
+  .daily-timer{font-size:11px;color:var(--muted);margin-left:auto}
+  .daily-q{text-align:center;font-size:22px;padding:10px 0 14px}
+  .reveal-btn{width:100%;background:var(--accent);color:white;border:none;border-radius:10px;padding:11px;font-size:14px;font-weight:700;cursor:pointer;transition:opacity .15s;font-family:inherit}
+  .reveal-btn:hover{opacity:.88}
+  .daily-answer{background:rgba(6,214,160,0.1);border-radius:10px;padding:12px;text-align:center;display:none;border:1px solid var(--success)}
+  .daily-answer.show{display:block}
+  .daily-answer .hint{font-size:11px;color:var(--muted);margin-bottom:6px}
+  /* Quick grid */
+  .quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+  .quick-card{background:var(--card);border-radius:14px;padding:16px 12px;cursor:pointer;border:1.5px solid var(--border);box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s}
+  .quick-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(67,97,238,0.18)}
+  .quick-card .qico{font-size:26px;margin-bottom:6px}
+  .quick-card .qlbl{font-weight:700;font-size:13px}
+  .quick-card .qsub{font-size:11px;color:var(--muted);margin-top:2px}
+  /* Formula */
+  .fsec{background:var(--card);border-radius:14px;border:1.5px solid var(--border);margin-bottom:12px;overflow:hidden;box-shadow:var(--shadow)}
+  .fsec-head{padding:10px 16px;font-weight:700;font-size:14px;border-bottom:1px solid var(--border)}
+  .fsec-body{padding:14px 16px;display:flex;flex-direction:column;gap:12px}
+  .frow{display:flex;align-items:center;gap:10px}
+  .frow .flabel{font-size:11px;color:var(--muted);min-width:32px;text-align:right}
+  .frow .ftex{font-size:15px}
+  /* Quiz */
+  .quiz-diff{display:flex;gap:8px;margin-bottom:14px;justify-content:center}
+  .diff-btn{padding:7px 18px;border-radius:20px;border:2px solid var(--border);background:white;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;color:var(--muted)}
+  .diff-btn.active{border-color:var(--primary);background:var(--primary);color:white}
+  .quiz-score{display:flex;gap:10px;margin-bottom:14px;justify-content:center}
+  .score-chip{border-radius:20px;padding:5px 18px;font-size:14px;font-weight:700}
+  .score-ok{background:rgba(6,214,160,0.15);color:var(--success);border:1px solid var(--success)}
+  .score-tot{background:var(--border);color:var(--muted)}
+  .quiz-question{background:linear-gradient(135deg,#EEF2FF,#E0E7FF);border-radius:16px;padding:18px;text-align:center;margin-bottom:14px;border:1px solid var(--border)}
+  .quiz-question .hint{font-size:12px;color:var(--muted);margin-bottom:8px}
+  .quiz-question .qtex{font-size:24px}
+  .quiz-circle-wrap{display:flex;justify-content:center;margin-bottom:14px;overflow-x:auto}
+  #quiz-svg{cursor:pointer;touch-action:none}
+  .quiz-result{border-radius:14px;padding:14px 20px;text-align:center;margin-bottom:14px;display:none}
+  .quiz-result.show{display:block}
+  .quiz-result.correct{background:rgba(6,214,160,0.12);border:2px solid var(--success)}
+  .quiz-result.wrong{background:rgba(239,35,60,0.08);border:2px solid var(--danger)}
+  .quiz-result .emo{font-size:24px;margin-bottom:4px}
+  .quiz-result .rtxt{font-size:14px;color:var(--muted)}
+  .next-btn{width:100%;background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;border:none;border-radius:12px;padding:13px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(67,97,238,0.3);transition:opacity .15s}
+  .next-btn:hover{opacity:.88}
+  /* Simulator */
+  #sim-svg{display:block;margin:0 auto;cursor:grab;touch-action:none}
+  #sim-svg:active{cursor:grabbing}
+  .sim-vals{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  .sim-val{background:var(--card);border-radius:12px;padding:11px 14px;border:1.5px solid var(--border);box-shadow:var(--shadow)}
+  .sim-val .vname{font-size:11px;color:var(--muted);margin-bottom:3px}
+  .sim-val .vval{font-size:15px;font-weight:600}
+  .famous-badge{background:linear-gradient(90deg,#FFFBEB,#FFF3CD);border:1.5px solid var(--accent);border-radius:10px;padding:9px 14px;font-size:13px;display:none;align-items:center;gap:8px;margin-top:12px}
+  .famous-badge.show{display:flex}
+  /* Famous table */
+  .famous-row{background:var(--card);border-radius:12px;padding:10px 12px;margin-bottom:8px;border:1px solid var(--border);display:grid;grid-template-columns:52px 52px 1fr 1fr 1fr;align-items:center;gap:6px;box-shadow:var(--shadow)}
+  .famous-row .fdeg{font-weight:700;color:var(--primary);font-size:13px}
+  .famous-row .frad{font-size:11px;color:var(--muted)}
+  .famous-row .fcell{text-align:center}
+  .famous-row .fcell .fname{font-size:9px;font-weight:700;margin-bottom:2px;text-transform:uppercase;letter-spacing:.04em}
+  .famous-row .fcell .fval{font-size:12px}
+  .mini-formula{background:#F5F7FF;border-radius:8px;padding:9px 12px;font-size:14px;margin-bottom:6px}
+  .mini-formula:last-child{margin-bottom:0}
+  .katex-display{margin:0!important}
+  /* Graph */
+  .fn-sel{flex:1;padding:8px;border-radius:10px;border:2px solid var(--border);background:white;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;color:var(--muted);transition:all .15s}
+  .fn-sel.active{border-color:var(--primary);background:var(--primary);color:white}
+  .g-param-box{background:#F5F7FF;border-radius:10px;padding:10px}
+  .g-plabel{font-size:11px;color:var(--muted);display:block;margin-bottom:6px}
+  .g-input{width:56px;border:1.5px solid var(--border);border-radius:7px;padding:5px 6px;font-size:14px;font-family:inherit;text-align:center;background:white}
+  .g-input-full{width:100%;box-sizing:border-box;text-align:left;font-size:15px;padding:7px 10px}
+  .g-frac-row{display:flex;align-items:center;gap:6px}
+  .g-frac-input{flex:1;min-width:0;text-align:center!important;font-size:15px;padding:7px 6px}
+  .g-frac-sep{font-size:20px;color:var(--muted);font-weight:700;flex-shrink:0}
+  .g-badge{display:inline-block;color:white;border-radius:5px;padding:1px 7px;font-size:12px;font-weight:900;margin-right:4px;font-family:serif;font-style:italic}
+  .g-add-mode-btn{flex:1;padding:8px;border-radius:10px;border:2px solid var(--border);background:white;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;color:var(--muted);transition:all .15s}
+  .g-add-mode-btn.active{border-color:var(--primary);background:var(--primary);color:white}
+  .prac-mode-btn{padding:7px 12px;border-radius:20px;border:2px solid var(--border);background:white;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;color:var(--muted);transition:all .15s}
+  .prac-mode-btn.active{border-color:var(--primary);background:var(--primary);color:white}
+  .prop-type-btn{padding:7px 14px;border-radius:20px;border:2px solid var(--border);background:white;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;color:var(--muted);transition:all .15s}
+  .prop-type-btn.active{border-color:var(--secondary);background:var(--secondary);color:white}
+  .g-mode-btn{flex:1;padding:8px;border-radius:10px;border:2px solid var(--border);background:white;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;color:var(--muted);transition:all .15s}
+  .g-mode-btn.active{border-color:var(--primary);background:var(--primary);color:white}
+  .g-edit-section{}
+  .g-graph-item{background:var(--card);border-radius:12px;padding:10px 14px;margin-bottom:8px;border:2px solid var(--border);display:flex;align-items:center;gap:10px;cursor:pointer;transition:border-color .15s}
+  .g-graph-item.selected{border-color:var(--primary);box-shadow:0 0 0 3px rgba(67,97,238,0.15)}
+  .g-graph-item .g-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
+  .g-graph-item .g-item-tex{flex:1;font-size:13px}
+  .g-graph-item .g-del{background:none;border:none;font-size:18px;cursor:pointer;color:var(--muted);padding:0 4px;line-height:1}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- HOME -->
+<div id="panel-home" class="panel active">
+  <div class="hero">
+    <h1>三角関数マスター 📐</h1>
+    <p>単位円から公式まで、楽しく学ぼう</p>
+  </div>
+  <div class="daily-card">
+    <div class="daily-header">
+      <span>🌟</span><span class="badge">今日の1問</span>
+      <span class="daily-timer">12時間ごとに更新</span>
+    </div>
+    <div class="daily-q" id="daily-q"></div>
+    <button class="reveal-btn" id="reveal-btn" onclick="revealAnswer()">答えを見る</button>
+    <div class="daily-answer" id="daily-answer">
+      <div class="hint" id="daily-hint"></div>
+      <div class="ans" id="daily-ans"></div>
+    </div>
+  </div>
+  <div class="quick-grid">
+    <div class="quick-card" onclick="switchTab('formula')"><div class="qico">📋</div><div class="qlbl" style="color:#4361EE">公式集</div><div class="qsub">全公式を確認</div></div>
+    <div class="quick-card" onclick="switchTab('quiz')"><div class="qico">🎯</div><div class="qlbl" style="color:#7209B7">弧度法クイズ</div><div class="qsub">点をタップして答える</div></div>
+    <div class="quick-card" onclick="switchTab('sim')"><div class="qico">🔵</div><div class="qlbl" style="color:#06D6A0">シミュレーター</div><div class="qsub">点をドラッグして確認</div></div>
+    <div class="quick-card" onclick="switchTab('famous')"><div class="qico">📐</div><div class="qlbl" style="color:#EF233C">有名角一覧</div><div class="qsub">15°〜360°</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">⚡ よく使う公式</div>
+    <div class="mini-formula" id="mf1"></div>
+    <div class="mini-formula" id="mf2"></div>
+    <div class="mini-formula" id="mf3"></div>
+  </div>
+</div>
+
+<!-- FORMULA -->
+<div id="panel-formula" class="panel">
+  <div id="formula-container"></div>
+</div>
+
+<!-- QUIZ -->
+<div id="panel-quiz" class="panel">
+  <div class="quiz-diff">
+    <button class="diff-btn active" data-diff="basic" onclick="setDiff('basic')">①基本</button>
+    <button class="diff-btn" data-diff="standard" onclick="setDiff('standard')">②標準</button>
+  </div>
+  <div class="quiz-score">
+    <span class="score-chip score-ok">✓ <span id="q-ok">0</span></span>
+    <span class="score-chip score-tot">合計 <span id="q-tot">0</span></span>
+  </div>
+  <div class="quiz-question">
+    <div class="hint" id="quiz-hint"></div>
+    <div class="qtex" id="quiz-qtex"></div>
+  </div>
+  <div class="quiz-circle-wrap">
+    <svg id="quiz-svg" width="340" height="340"></svg>
+  </div>
+  <div class="quiz-result" id="quiz-result">
+    <div class="emo" id="quiz-emo"></div>
+    <div class="rtxt" id="quiz-rtxt"></div>
+  </div>
+  <button class="next-btn" id="quiz-next-btn" onclick="quizNext()">スキップ</button>
+</div>
+
+<!-- SIM -->
+<div id="panel-sim" class="panel">
+  <div class="card" style="padding:12px">
+    <canvas id="sim-canvas" width="330" height="330" style="display:block;margin:0 auto;cursor:grab;touch-action:none;user-select:none;border-radius:10px"></canvas>
+  </div>
+  <div style="display:flex;gap:8px;margin-bottom:12px">
+    <button onclick="simAngleCumulative=0;simDraw()" style="flex:1;background:#F5F7FF;border:1.5px solid var(--border);border-radius:10px;padding:9px;font-family:inherit;font-size:13px;font-weight:700;color:var(--primary);cursor:pointer;">↺ 0°に戻す</button>
+    <button onclick="simAngleCumulative=Math.round(simAngleCumulative/15)*15-15;simDraw()" style="flex:1;background:#F5F7FF;border:1.5px solid var(--border);border-radius:10px;padding:9px;font-family:inherit;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;">−15°</button>
+    <button onclick="simAngleCumulative=Math.round(simAngleCumulative/15)*15+15;simDraw()" style="flex:1;background:#F5F7FF;border:1.5px solid var(--border);border-radius:10px;padding:9px;font-family:inherit;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;">+15°</button>
+  </div>
+  <div class="sim-vals">
+    <div class="sim-val" style="border-color:#4361EE30"><div class="vname">角度 (度・累積)</div><div class="vval" style="color:#4361EE" id="sv-deg">0°</div></div>
+    <div class="sim-val" style="border-color:#F77F0030"><div class="vname">角度 (弧度)</div><div class="vval" style="color:#F77F00" id="sv-rad"></div></div>
+    <div class="sim-val" style="border-color:#06D6A030"><div class="vname">sin θ</div><div class="vval" style="color:#06D6A0" id="sv-sin"></div></div>
+    <div class="sim-val" style="border-color:#7209B730"><div class="vname">cos θ</div><div class="vval" style="color:#7209B7" id="sv-cos"></div></div>
+    <div class="sim-val" style="border-color:#EF233C30"><div class="vname">tan θ</div><div class="vval" style="color:#EF233C" id="sv-tan"></div></div>
+  </div>
+  <div class="famous-badge" id="famous-badge"><span>⭐</span><span id="famous-text"></span></div>
+</div>
+
+<!-- FAMOUS -->
+<div id="panel-famous" class="panel">
+  <div class="card-title" style="margin-bottom:12px">有名角の三角関数値（15°含む）</div>
+  <div id="famous-table"></div>
+</div>
+
+<!-- UNDERSTAND -->
+<!-- GRAPH -->
+<div id="panel-graph" class="panel">
+  <!-- Builder card -->
+  <div class="card" style="margin-bottom:12px">
+
+    <!-- Function selector -->
+    <div style="display:flex;gap:6px;margin-bottom:12px">
+      <button class="fn-sel active" data-fn="sin" onclick="gSelectFn(this,'sin')">sin</button>
+      <button class="fn-sel" data-fn="cos" onclick="gSelectFn(this,'cos')">cos</button>
+      <button class="fn-sel" data-fn="tan" onclick="gSelectFn(this,'tan')">tan</button>
+    </div>
+
+    <!-- Formula preview -->
+    <div id="g-formula-display" style="background:#F5F7FF;border-radius:10px;padding:10px 14px;text-align:center;font-size:18px;margin-bottom:14px"></div>
+
+    <!-- Parameters -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
+
+      <div class="g-param-box">
+        <label class="g-plabel"><span class="g-badge" style="background:#EF233C">a</span> 振幅</label>
+        <div class="g-frac-row">
+          <input class="g-input g-frac-input" id="gi-an" type="number" value="1" step="1" oninput="gUpdateFormula()">
+          <span class="g-frac-sep">/</span>
+          <input class="g-input g-frac-input" id="gi-ad" type="number" value="1" min="1" step="1" oninput="gUpdateFormula()">
+        </div>
+      </div>
+
+      <div class="g-param-box">
+        <label class="g-plabel"><span class="g-badge" style="background:#06D6A0">b</span> 周波数</label>
+        <div class="g-frac-row">
+          <input class="g-input g-frac-input" id="gi-bn" type="number" value="1" step="1" oninput="gUpdateFormula()">
+          <span class="g-frac-sep">/</span>
+          <input class="g-input g-frac-input" id="gi-bd" type="number" value="1" min="1" step="1" oninput="gUpdateFormula()">
+        </div>
+      </div>
+
+      <div class="g-param-box">
+        <label class="g-plabel"><span class="g-badge" style="background:#7209B7">c</span> 位相 (×π/分母)</label>
+        <div class="g-frac-row">
+          <input class="g-input g-frac-input" id="gi-cn" type="number" value="0" step="1" oninput="gUpdateFormula()">
+          <span class="g-frac-sep" style="color:#7209B7;font-weight:900">π/</span>
+          <input class="g-input g-frac-input" id="gi-cd" type="number" value="1" min="1" step="1" oninput="gUpdateFormula()">
+        </div>
+      </div>
+
+      <div class="g-param-box">
+        <label class="g-plabel"><span class="g-badge" style="background:#F77F00">d</span> 縦シフト</label>
+        <div class="g-frac-row">
+          <input class="g-input g-frac-input" id="gi-dn" type="number" value="0" step="1" oninput="gUpdateFormula()">
+          <span class="g-frac-sep">/</span>
+          <input class="g-input g-frac-input" id="gi-dd" type="number" value="1" min="1" step="1" oninput="gUpdateFormula()">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Add mode selector -->
+    <div style="display:flex;gap:8px;margin-bottom:10px">
+      <button class="g-add-mode-btn active" data-amode="instant" onclick="gSetAddMode(this,'instant')">⚡ 即時表示</button>
+      <button class="g-add-mode-btn" data-amode="anim" onclick="gSetAddMode(this,'anim')">🎬 アニメーション</button>
+    </div>
+
+    <!-- Animation speed (shown only in anim mode) -->
+    <div id="g-anim-controls" style="display:none;margin-bottom:10px">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:12px;color:var(--muted);font-weight:700">速度：</span>
+        <select id="g-anim-speed" style="flex:1;padding:9px 8px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:13px;background:white">
+          <option value="0.3">ゆっくり</option>
+          <option value="0.6">遅め</option>
+          <option value="1" selected>普通</option>
+          <option value="2">速め</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Add / Reset buttons -->
+    <div style="display:flex;gap:8px">
+      <button onclick="gCreate()" style="flex:2;background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;border:none;border-radius:12px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(67,97,238,0.3)">＋ 追加</button>
+      <button onclick="gClearAll()" style="flex:1;background:#FFF0F0;border:1.5px solid #EF233C40;border-radius:12px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;color:#EF233C">🗑 初期化</button>
+    </div>
+  </div>
+
+  <!-- Canvas area -->
+  <div class="card" style="padding:10px;margin-bottom:10px;position:relative">
+    <!-- Static graph (instant mode) -->
+    <canvas id="graph-canvas" style="width:100%;display:block;border-radius:8px;touch-action:none"></canvas>
+    <!-- Animation mode: unit circle left + graph right, side by side -->
+    <div id="g-anim-dual" style="display:none;flex-direction:column;gap:6px">
+      <div style="display:flex;gap:6px;align-items:stretch">
+        <div style="text-align:center">
+          <div style="font-size:10px;color:var(--muted);font-weight:700;margin-bottom:3px">単位円</div>
+          <canvas id="g-circle-canvas" style="display:block;border-radius:8px;background:#F5F7FF"></canvas>
+        </div>
+        <div style="flex:1;text-align:center;min-width:0">
+          <div style="font-size:10px;color:var(--muted);font-weight:700;margin-bottom:3px">グラフ</div>
+          <canvas id="g-anim-graph-canvas" style="display:block;width:100%;border-radius:8px;background:#F5F7FF"></canvas>
+        </div>
+      </div>
+      <div id="g-anim-val-display" style="background:#F5F7FF;border-radius:8px;padding:6px 10px;font-size:12px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap"></div>
+    </div>
+    <div id="g-edit-label" style="display:none;position:absolute;top:14px;left:50%;transform:translateX(-50%);background:rgba(67,97,238,0.9);color:white;border-radius:20px;padding:4px 16px;font-size:12px;font-weight:700;pointer-events:none">編集モード</div>
+  </div>
+
+  <!-- Graph list -->
+  <div id="g-list"></div>
+
+  <!-- Edit panel -->
+  <div id="g-edit-panel" style="display:none" class="card">
+    <div style="font-weight:700;font-size:13px;color:var(--primary);margin-bottom:10px">✏️ 編集中: <span id="g-edit-name"></span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+      <div class="g-param-box">
+        <label class="g-plabel"><span class="g-badge" style="background:#EF233C">a</span> 振幅</label>
+        <div class="g-frac-row">
+          <input class="g-input g-frac-input" id="ge-an" type="number" step="1" oninput="gEditInput()">
+          <span class="g-frac-sep">/</span>
+          <input class="g-input g-frac-input" id="ge-ad" type="number" min="1" step="1" oninput="gEditInput()">
+        </div>
+      </div>
+      <div class="g-param-box">
+        <label class="g-plabel"><span class="g-badge" style="background:#06D6A0">b</span> 周波数</label>
+        <div class="g-frac-row">
+          <input class="g-input g-frac-input" id="ge-bn" type="number" step="1" oninput="gEditInput()">
+          <span class="g-frac-sep">/</span>
+          <input class="g-input g-frac-input" id="ge-bd" type="number" min="1" step="1" oninput="gEditInput()">
+        </div>
+      </div>
+      <div class="g-param-box">
+        <label class="g-plabel"><span class="g-badge" style="background:#7209B7">c</span> 位相 (×π/分母)</label>
+        <div class="g-frac-row">
+          <input class="g-input g-frac-input" id="ge-cn" type="number" step="1" oninput="gEditInput()">
+          <span class="g-frac-sep" style="color:#7209B7;font-weight:900">π/</span>
+          <input class="g-input g-frac-input" id="ge-cd" type="number" min="1" step="1" oninput="gEditInput()">
+        </div>
+      </div>
+      <div class="g-param-box">
+        <label class="g-plabel"><span class="g-badge" style="background:#F77F00">d</span> 縦シフト</label>
+        <div class="g-frac-row">
+          <input class="g-input g-frac-input" id="ge-dn" type="number" step="1" oninput="gEditInput()">
+          <span class="g-frac-sep">/</span>
+          <input class="g-input g-frac-input" id="ge-dd" type="number" min="1" step="1" oninput="gEditInput()">
+        </div>
+      </div>
+    </div>
+    <div id="ge-formula" style="background:#F5F7FF;border-radius:10px;padding:10px 14px;text-align:center;font-size:16px;margin-bottom:10px"></div>
+    <button onclick="gDeselect()" style="width:100%;background:#F5F7FF;border:1.5px solid var(--border);border-radius:10px;padding:9px;font-family:inherit;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer">✕ 編集を終了</button>
+  </div>
+</div>
+
+
+<!-- PROP -->
+<div id="panel-prop" class="panel">
+
+  <!-- Type selector -->
+  <div style="margin-bottom:12px">
+    <div style="font-size:11px;color:var(--muted);font-weight:700;margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em">変換タイプを選択</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px">
+      <button class="prop-type-btn active" data-pt="neg"    onclick="propSet(this,'neg')">−θ</button>
+      <button class="prop-type-btn"        data-pt="pluspi" onclick="propSet(this,'pluspi')">θ+π</button>
+      <button class="prop-type-btn"        data-pt="minuspi" onclick="propSet(this,'minuspi')">π−θ</button>
+      <button class="prop-type-btn"        data-pt="pluspi2" onclick="propSet(this,'pluspi2')">θ+π/2</button>
+      <button class="prop-type-btn"        data-pt="minuspi2" onclick="propSet(this,'minuspi2')">π/2−θ</button>
+      <button class="prop-type-btn"        data-pt="period" onclick="propSet(this,'period')">θ+2nπ</button>
+    </div>
+  </div>
+
+  <!-- Explanation card -->
+  <div class="card" style="margin-bottom:10px;padding:14px">
+    <div id="prop-rule-title" style="font-weight:700;font-size:14px;color:var(--primary);margin-bottom:10px"></div>
+    <div id="prop-rules" style="display:flex;flex-direction:column;gap:8px"></div>
+  </div>
+
+  <!-- Unit circle canvas -->
+  <div class="card" style="padding:10px;margin-bottom:10px">
+    <canvas id="prop-canvas" width="330" height="330"
+      style="display:block;margin:0 auto;border-radius:8px;touch-action:none;cursor:grab"></canvas>
+  </div>
+
+  <!-- Angle slider -->
+  <div class="card" style="padding:14px;margin-bottom:10px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <span style="font-size:12px;color:var(--muted);font-weight:700">θ を動かす</span>
+      <span id="prop-deg-label" style="font-size:16px;font-weight:700;color:var(--primary)">45°</span>
+    </div>
+    <input type="range" id="prop-slider" min="0" max="360" value="45" step="15"
+      oninput="propSlider(this.value)"
+      style="width:100%;accent-color:var(--primary)">
+    <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:4px">
+      <span>0°</span><span>90°</span><span>180°</span><span>270°</span><span>360°</span>
+    </div>
+  </div>
+
+  <!-- Values display -->
+  <div class="card" style="padding:14px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:6px">元の角度 θ =
+          <span id="prop-orig-deg" style="color:var(--primary);font-weight:700"></span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px" id="prop-orig-vals"></div>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:6px" id="prop-trans-label">変換後 =
+          <span id="prop-trans-deg" style="color:#EF233C;font-weight:700"></span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px" id="prop-trans-vals"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PRACTICE -->
+<div id="panel-practice" class="panel">
+
+  <!-- Mode selector -->
+  <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+    <button class="prac-mode-btn active" data-mode="eq" onclick="pracSetMode(this,'eq')">① 方程式</button>
+    <button class="prac-mode-btn" data-mode="ineq" onclick="pracSetMode(this,'ineq')">② 不等式</button>
+    <button class="prac-mode-btn" data-mode="comp" onclick="pracSetMode(this,'comp')">④ 合成</button>
+    <button class="prac-mode-btn" data-mode="add" onclick="pracSetMode(this,'add')">⑤ 加法定理</button>
+  </div>
+
+  <!-- Score -->
+  <div style="display:flex;gap:10px;margin-bottom:12px;justify-content:center">
+    <span class="score-chip score-ok">✓ <span id="pr-ok">0</span></span>
+    <span class="score-chip score-tot">合計 <span id="pr-tot">0</span></span>
+  </div>
+
+  <!-- Question display -->
+  <div class="card" style="text-align:center;margin-bottom:12px;padding:16px 20px">
+    <div id="pr-question" style="font-size:20px;margin-bottom:6px"></div>
+    <div id="pr-hint" style="font-size:12px;color:var(--muted);margin-bottom:8px"></div>
+    <button id="pr-hint-btn" onclick="pracShowHint()" style="display:none;background:#F5F7FF;border:1.5px solid var(--border);border-radius:10px;padding:7px 20px;font-family:inherit;font-size:13px;font-weight:700;color:var(--primary);cursor:pointer">💡 ヒントを見る</button>
+  </div>
+
+  <!-- Canvas (unit circle) -->
+  <div class="card" style="padding:10px;margin-bottom:10px;position:relative">
+    <canvas id="prac-canvas" width="330" height="330"
+      style="display:block;margin:0 auto;touch-action:none;border-radius:8px;cursor:pointer"></canvas>
+  </div>
+
+  <!-- Sub-step panel (for quad/comp/add) -->
+  <div id="pr-substep" style="display:none" class="card" style="margin-bottom:10px">
+    <div id="pr-substep-content"></div>
+  </div>
+
+  <!-- Result -->
+  <div class="quiz-result" id="pr-result">
+    <div class="emo" id="pr-emo"></div>
+    <div class="rtxt" id="pr-rtxt"></div>
+  </div>
+
+  <!-- Next button -->
+  <button class="next-btn" id="pr-next" onclick="pracNext()">スキップ</button>
+</div>
+</div><!-- /.app -->
+
+<div class="tabbar"><div class="tabbar-inner">
+  <button class="tab-btn active" data-tab="home" onclick="switchTab('home')"><span class="ico">🏠</span><span class="lbl">ホーム</span></button>
+  <button class="tab-btn" data-tab="formula" onclick="switchTab('formula')"><span class="ico">📋</span><span class="lbl">公式集</span></button>
+  <button class="tab-btn" data-tab="prop" onclick="switchTab('prop')"><span class="ico">🔄</span><span class="lbl">性質</span></button>
+  <button class="tab-btn" data-tab="quiz" onclick="switchTab('quiz')"><span class="ico">🎯</span><span class="lbl">クイズ</span></button>
+  <button class="tab-btn" data-tab="sim" onclick="switchTab('sim')"><span class="ico">🔵</span><span class="lbl">シミュレータ</span></button>
+  <button class="tab-btn" data-tab="graph" onclick="switchTab('graph')"><span class="ico">📈</span><span class="lbl">グラフ</span></button>
+  <button class="tab-btn" data-tab="practice" onclick="switchTab('practice')"><span class="ico">✏️</span><span class="lbl">練習</span></button>
+</div></div>
+
+<script>
+/* ══════════════════════════════════════════════
+   DATA
+══════════════════════════════════════════════ */
+
+// 15°刻み 24点 (0°~345°)
+const CANDIDATES_15 = Array.from({length:24}, (_,i)=>i*15);
+
+// Famous angle exact values (degrees 0–360 at 15° steps)
+const FAMOUS = {
+  0:   {sin:"0",                              cos:"1",                              tan:"0",               rad:"0"},
+  15:  {sin:"\\dfrac{\\sqrt{6}-\\sqrt{2}}{4}",cos:"\\dfrac{\\sqrt{6}+\\sqrt{2}}{4}",tan:"2-\\sqrt{3}",    rad:"\\dfrac{\\pi}{12}"},
+  30:  {sin:"\\dfrac{1}{2}",                  cos:"\\dfrac{\\sqrt{3}}{2}",          tan:"\\dfrac{1}{\\sqrt{3}}",rad:"\\dfrac{\\pi}{6}"},
+  45:  {sin:"\\dfrac{\\sqrt{2}}{2}",          cos:"\\dfrac{\\sqrt{2}}{2}",          tan:"1",               rad:"\\dfrac{\\pi}{4}"},
+  60:  {sin:"\\dfrac{\\sqrt{3}}{2}",          cos:"\\dfrac{1}{2}",                  tan:"\\sqrt{3}",       rad:"\\dfrac{\\pi}{3}"},
+  75:  {sin:"\\dfrac{\\sqrt{6}+\\sqrt{2}}{4}",cos:"\\dfrac{\\sqrt{6}-\\sqrt{2}}{4}",tan:"2+\\sqrt{3}",    rad:"\\dfrac{5\\pi}{12}"},
+  90:  {sin:"1",                              cos:"0",                              tan:"\\text{undef}",   rad:"\\dfrac{\\pi}{2}"},
+  105: {sin:"\\dfrac{\\sqrt{6}+\\sqrt{2}}{4}",cos:"\\dfrac{\\sqrt{2}-\\sqrt{6}}{4}",tan:"-(2+\\sqrt{3})", rad:"\\dfrac{7\\pi}{12}"},
+  120: {sin:"\\dfrac{\\sqrt{3}}{2}",          cos:"-\\dfrac{1}{2}",                 tan:"-\\sqrt{3}",      rad:"\\dfrac{2\\pi}{3}"},
+  135: {sin:"\\dfrac{\\sqrt{2}}{2}",          cos:"-\\dfrac{\\sqrt{2}}{2}",         tan:"-1",              rad:"\\dfrac{3\\pi}{4}"},
+  150: {sin:"\\dfrac{1}{2}",                  cos:"-\\dfrac{\\sqrt{3}}{2}",         tan:"-\\dfrac{1}{\\sqrt{3}}",rad:"\\dfrac{5\\pi}{6}"},
+  165: {sin:"\\dfrac{\\sqrt{6}-\\sqrt{2}}{4}",cos:"-\\dfrac{\\sqrt{6}+\\sqrt{2}}{4}",tan:"-(2-\\sqrt{3})",rad:"\\dfrac{11\\pi}{12}"},
+  180: {sin:"0",                              cos:"-1",                             tan:"0",               rad:"\\pi"},
+  195: {sin:"-\\dfrac{\\sqrt{6}-\\sqrt{2}}{4}",cos:"-\\dfrac{\\sqrt{6}+\\sqrt{2}}{4}",tan:"2-\\sqrt{3}",  rad:"\\dfrac{13\\pi}{12}"},
+  210: {sin:"-\\dfrac{1}{2}",                 cos:"-\\dfrac{\\sqrt{3}}{2}",         tan:"\\dfrac{1}{\\sqrt{3}}",rad:"\\dfrac{7\\pi}{6}"},
+  225: {sin:"-\\dfrac{\\sqrt{2}}{2}",         cos:"-\\dfrac{\\sqrt{2}}{2}",         tan:"1",               rad:"\\dfrac{5\\pi}{4}"},
+  240: {sin:"-\\dfrac{\\sqrt{3}}{2}",         cos:"-\\dfrac{1}{2}",                 tan:"\\sqrt{3}",       rad:"\\dfrac{4\\pi}{3}"},
+  255: {sin:"-\\dfrac{\\sqrt{6}+\\sqrt{2}}{4}",cos:"\\dfrac{\\sqrt{2}-\\sqrt{6}}{4}",tan:"2+\\sqrt{3}",   rad:"\\dfrac{17\\pi}{12}"},
+  270: {sin:"-1",                             cos:"0",                              tan:"\\text{undef}",   rad:"\\dfrac{3\\pi}{2}"},
+  285: {sin:"-\\dfrac{\\sqrt{6}+\\sqrt{2}}{4}",cos:"\\dfrac{\\sqrt{6}-\\sqrt{2}}{4}",tan:"-(2+\\sqrt{3})",rad:"\\dfrac{19\\pi}{12}"},
+  300: {sin:"-\\dfrac{\\sqrt{3}}{2}",         cos:"\\dfrac{1}{2}",                  tan:"-\\sqrt{3}",      rad:"\\dfrac{5\\pi}{3}"},
+  315: {sin:"-\\dfrac{\\sqrt{2}}{2}",         cos:"\\dfrac{\\sqrt{2}}{2}",          tan:"-1",              rad:"\\dfrac{7\\pi}{4}"},
+  330: {sin:"-\\dfrac{1}{2}",                 cos:"\\dfrac{\\sqrt{3}}{2}",          tan:"-\\dfrac{1}{\\sqrt{3}}",rad:"\\dfrac{11\\pi}{6}"},
+  345: {sin:"-\\dfrac{\\sqrt{6}-\\sqrt{2}}{4}",cos:"\\dfrac{\\sqrt{6}+\\sqrt{2}}{4}",tan:"-(2-\\sqrt{3})",rad:"\\dfrac{23\\pi}{12}"},
+  360: {sin:"0",                              cos:"1",                              tan:"0",               rad:"2\\pi"},
+};
+
+// π fraction labels for radian display
+// n/12 system covers all 15° steps
+function degToRadTex(deg) {
+  // normalise to [0,360)
+  const n = ((deg % 360) + 360) % 360;
+  if (FAMOUS[n]) return FAMOUS[n].rad;
+  // fallback fraction
+  const num = n; const den = 180;
+  const g = gcd(num, den);
+  const p = num/g, q = den/g;
+  if (q===1) return `${p}\\pi`;
+  return `\\dfrac{${p}\\pi}{${q}}`;
+}
+
+function gcd(a,b){return b===0?a:gcd(b,a%b);}
+
+// Degree → exact rad tex for any integer multiple
+function intDegToRadTex(totalDeg) {
+  // e.g. 390° = 2π + π/6  → shown as π/6 + 2π shift? 
+  // We display as fraction of π over 180
+  // simplify totalDeg/180 * π
+  const sign = totalDeg < 0 ? '-' : '';
+  const absDeg = Math.abs(totalDeg);
+  if (absDeg === 0) return '0';
+  const g = gcd(absDeg, 180);
+  const num = absDeg / g;
+  const den = 180 / g;
+  if (den === 1) return `${sign}${num}\\pi`;
+  return `${sign}\\dfrac{${num}\\pi}{${den}}`;
+}
+
+/* ── Quiz question bank ─────────────────────────── */
+// Basic: 0°~360° with all 15° candidates (single turn)
+function buildBasicBank() {
+  return CANDIDATES_15.map(deg => ({
+    deg,
+    radTex: FAMOUS[deg] ? FAMOUS[deg].rad : degToRadTex(deg),
+    hint: '次の弧度法を度数法に変換してください（0° ～ 360°）'
+  }));
+}
+
+// Standard: ±6π → multiples of 15° including negatives, excluding basic [0,360)
+function buildStandardBank() {
+  const bank = [];
+  for (let d = -1080; d <= 1080; d += 15) {
+    if (d === 0) continue;
+    if (d > 0 && d < 360) continue; // already in basic
+    const norm = ((d % 360) + 360) % 360;
+    bank.push({
+      deg: d,
+      answerDeg: norm,
+      radTex: intDegToRadTex(d),
+      hint: '弧度法を度数法に変換し、単位円上の対応する点をタップ（0°〜360° に正規化）'
+    });
+  }
+  return bank;
+}
+
+let QUIZ_BANK_BASIC = buildBasicBank();
+let QUIZ_BANK_STANDARD = buildStandardBank();
+
+let quizDiff = 'basic';
+let quizState = { qIdx:0, answered:false, ok:0, total:0, currentQ:null };
+
+const NS = "http://www.w3.org/2000/svg";
+
+/* ══════════════════════════════════════════════
+   FORMULAS
+══════════════════════════════════════════════ */
+const FORMULAS = [
+  { title:"基本定義", color:"#4361EE", rows:[
+    {l:"正弦", t:"\\sin\\theta = \\dfrac{y}{r}"},
+    {l:"余弦", t:"\\cos\\theta = \\dfrac{x}{r}"},
+    {l:"正接", t:"\\tan\\theta = \\dfrac{y}{x} = \\dfrac{\\sin\\theta}{\\cos\\theta}"},
+  ]},
+  { title:"ピタゴラス恒等式", color:"#7209B7", rows:[
+    {l:"", t:"\\sin^2\\theta + \\cos^2\\theta = 1"},
+    {l:"", t:"1 + \\tan^2\\theta = \\dfrac{1}{\\cos^2\\theta}"},
+    {l:"", t:"1 + \\cot^2\\theta = \\dfrac{1}{\\sin^2\\theta}"},
+  ]},
+  { title:"加法定理", color:"#06D6A0", rows:[
+    {l:"", t:"\\sin(\\alpha\\pm\\beta)=\\sin\\alpha\\cos\\beta\\pm\\cos\\alpha\\sin\\beta"},
+    {l:"", t:"\\cos(\\alpha\\pm\\beta)=\\cos\\alpha\\cos\\beta\\mp\\sin\\alpha\\sin\\beta"},
+    {l:"", t:"\\tan(\\alpha\\pm\\beta)=\\dfrac{\\tan\\alpha\\pm\\tan\\beta}{1\\mp\\tan\\alpha\\tan\\beta}"},
+  ]},
+  { title:"2倍角の公式", color:"#F77F00", rows:[
+    {l:"", t:"\\sin 2\\theta = 2\\sin\\theta\\cos\\theta"},
+    {l:"", t:"\\cos 2\\theta = \\cos^2\\theta-\\sin^2\\theta = 1-2\\sin^2\\theta = 2\\cos^2\\theta-1"},
+    {l:"", t:"\\tan 2\\theta = \\dfrac{2\\tan\\theta}{1-\\tan^2\\theta}"},
+  ]},
+  { title:"半角の公式", color:"#EF233C", rows:[
+    {l:"", t:"\\sin^2\\dfrac{\\theta}{2}=\\dfrac{1-\\cos\\theta}{2}"},
+    {l:"", t:"\\cos^2\\dfrac{\\theta}{2}=\\dfrac{1+\\cos\\theta}{2}"},
+    {l:"", t:"\\tan^2\\dfrac{\\theta}{2}=\\dfrac{1-\\cos\\theta}{1+\\cos\\theta}"},
+  ]},
+  { title:"弧度法 ↔ 度数法", color:"#3A86FF", rows:[
+    {l:"", t:"\\theta\\,[\\text{rad}] = \\dfrac{\\pi}{180}\\times\\theta\\,[°]"},
+    {l:"", t:"\\theta\\,[°] = \\dfrac{180}{\\pi}\\times\\theta\\,[\\text{rad}]"},
+  ]},
+];
+
+const DAILY_QS = [
+  {q:"\\sin 30° = ?",                          a:"\\dfrac{1}{2}",                hint:"y座標 (第1象限)"},
+  {q:"\\cos 60° = ?",                          a:"\\dfrac{1}{2}",                hint:"x座標 (第1象限)"},
+  {q:"\\tan 45° = ?",                          a:"1",                             hint:"\\sin/\\cos"},
+  {q:"\\sin^2\\theta + \\cos^2\\theta = ?",    a:"1",                             hint:"ピタゴラス恒等式"},
+  {q:"\\sin 150° = ?",                         a:"\\dfrac{1}{2}",                hint:"第2象限: sin(180°-30°)"},
+  {q:"\\cos 135° = ?",                         a:"-\\dfrac{\\sqrt{2}}{2}",       hint:"第2象限"},
+  {q:"\\sin 2\\theta = ?",                     a:"2\\sin\\theta\\cos\\theta",    hint:"2倍角の公式"},
+  {q:"\\pi \\text{ rad} = ?",                  a:"180°",                          hint:"弧度法変換"},
+  {q:"\\dfrac{\\pi}{3} \\text{ rad} = ?",     a:"60°",                           hint:"\\pi = 180°"},
+  {q:"\\sin 15° = ?",                          a:"\\dfrac{\\sqrt{6}-\\sqrt{2}}{4}",hint:"加法定理: sin(45°-30°)"},
+  {q:"\\cos(-\\theta) = ?",                    a:"\\cos\\theta",                  hint:"cos は偶関数"},
+  {q:"\\sin(-\\theta) = ?",                    a:"-\\sin\\theta",                 hint:"sin は奇関数"},
+];
+
+/* ══════════════════════════════════════════════
+   UTILS
+══════════════════════════════════════════════ */
+function K(tex, el, display=false) {
+  katex.render(tex, el, {throwOnError:false, displayMode:display});
+}
+function Kstr(tex) {
+  return katex.renderToString(tex, {throwOnError:false});
+}
+
+function switchTab(id) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  document.querySelector(`.tab-btn[data-tab="${id}"]`).classList.add('active');
+  if (id==='sim') simDraw();
+  if (id!=='graph') { gAnimStop && gAnimStop(); }
+  if (id==='graph') { setTimeout(gDrawCanvas,50); }
+  if (id==='prop') { propInitCanvas(); propDraw(); }
+}
+
+/* ══════════════════════════════════════════════
+   HOME
+══════════════════════════════════════════════ */
+function initHome() {
+  const slot = Math.floor(Date.now()/(12*60*60*1000));
+  const q = DAILY_QS[slot % DAILY_QS.length];
+  K(q.q, document.getElementById('daily-q'), false);
+  document.getElementById('daily-answer')._q = q;
+  const mfs = [
+    "\\sin^2\\theta+\\cos^2\\theta=1",
+    "\\sin(\\alpha+\\beta)=\\sin\\alpha\\cos\\beta+\\cos\\alpha\\sin\\beta",
+    "\\cos 2\\theta=1-2\\sin^2\\theta",
+  ];
+  mfs.forEach((f,i)=>K(f, document.getElementById('mf'+(i+1))));
+}
+
+function revealAnswer() {
+  const ans = document.getElementById('daily-answer');
+  const q = ans._q;
+  document.getElementById('daily-hint').textContent = 'ヒント: '+q.hint.replace(/\\/g,'\\');
+  K(q.a, document.getElementById('daily-ans'), true);
+  ans.classList.add('show');
+  document.getElementById('reveal-btn').style.display='none';
+}
+
+/* ══════════════════════════════════════════════
+   FORMULA
+══════════════════════════════════════════════ */
+function initFormula() {
+  const cont = document.getElementById('formula-container');
+  FORMULAS.forEach(sec=>{
+    const div = document.createElement('div');
+    div.className='fsec';
+    const head = document.createElement('div');
+    head.className='fsec-head';
+    head.style.color=sec.color;
+    head.style.background=sec.color+'18';
+    head.textContent=sec.title;
+    div.appendChild(head);
+    const body = document.createElement('div');
+    body.className='fsec-body';
+    sec.rows.forEach(row=>{
+      const r=document.createElement('div'); r.className='frow';
+      if(row.l){const lb=document.createElement('span');lb.className='flabel';lb.textContent=row.l;r.appendChild(lb);}
+      const tx=document.createElement('span');tx.className='ftex';
+      K(row.t,tx,row.t.length>35);
+      r.appendChild(tx);
+      body.appendChild(r);
+    });
+    div.appendChild(body);
+    cont.appendChild(div);
+  });
+}
+
+/* ══════════════════════════════════════════════
+   QUIZ
+══════════════════════════════════════════════ */
+const SVG_W=340, SVG_H=340, SVG_CX=170, SVG_CY=170, SVG_R=130;
+
+function setDiff(diff) {
+  quizDiff = diff;
+  document.querySelectorAll('.diff-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.diff===diff);
+  });
+  // reset score per difficulty change
+  quizState = {qIdx:0, answered:false, ok:0, total:0, currentQ:null};
+  document.getElementById('q-ok').textContent='0';
+  document.getElementById('q-tot').textContent='0';
+  document.getElementById('quiz-result').className='quiz-result';
+  document.getElementById('quiz-next-btn').textContent='スキップ';
+  pickNewQuestion();
+  drawQuizCircle();
+}
+
+function getBank() {
+  return quizDiff==='basic' ? QUIZ_BANK_BASIC : QUIZ_BANK_STANDARD;
+}
+
+function pickNewQuestion(excludeIdx) {
+  const bank = getBank();
+  let ni;
+  do { ni = Math.floor(Math.random()*bank.length); } while(bank.length>1 && ni===excludeIdx);
+  quizState.qIdx = ni;
+  quizState.currentQ = bank[ni];
+  renderQuizQ();
+}
+
+function renderQuizQ() {
+  const q = quizState.currentQ;
+  document.getElementById('quiz-hint').textContent = q.hint;
+  K(q.radTex, document.getElementById('quiz-qtex'), true);
+}
+
+function drawQuizCircle() {
+  const svg = document.getElementById('quiz-svg');
+  svg.innerHTML='';
+  svg.setAttribute('width',SVG_W); svg.setAttribute('height',SVG_H);
+
+  const mk=(tag,attrs)=>{
+    const el=document.createElementNS(NS,tag);
+    Object.entries(attrs).forEach(([k,v])=>el.setAttribute(k,v));
+    return el;
+  };
+
+  // Background
+  svg.appendChild(mk('rect',{width:SVG_W,height:SVG_H,rx:12,fill:'#F5F7FF'}));
+
+  // Axes
+  svg.appendChild(mk('line',{x1:14,y1:SVG_CY,x2:SVG_W-14,y2:SVG_CY,stroke:'#C7D2FE','stroke-width':1.5}));
+  svg.appendChild(mk('line',{x1:SVG_CX,y1:14,x2:SVG_CX,y2:SVG_H-14,stroke:'#C7D2FE','stroke-width':1.5}));
+
+  // Circle
+  svg.appendChild(mk('circle',{cx:SVG_CX,cy:SVG_CY,r:SVG_R,fill:'none',stroke:'#C7D2FE','stroke-width':2}));
+
+  // Candidate points — 15° increments (24 points)
+  CANDIDATES_15.forEach(d=>{
+    const rad = d*Math.PI/180;
+    const px = SVG_CX + SVG_R*Math.cos(-rad);
+    const py = SVG_CY + SVG_R*Math.sin(-rad);
+    const g = document.createElementNS(NS,'g');
+    g.style.cursor='pointer';
+
+    const c = mk('circle',{cx:px,cy:py,r:13,fill:'#4361EE',stroke:'white','stroke-width':2.5});
+    c.setAttribute('data-deg',d);
+    c.style.transition='fill 0.25s';
+    g.appendChild(c);
+
+    const t = mk('text',{x:px,y:py+4,'text-anchor':'middle','font-size':'8.5',fill:'white','font-weight':'bold','pointer-events':'none'});
+    t.textContent=d+'°';
+    g.appendChild(t);
+
+    g.addEventListener('click',()=>quizAnswer(d));
+    g.addEventListener('touchend',e=>{e.preventDefault();quizAnswer(d);});
+    svg.appendChild(g);
+  });
+
+  // Center dot
+  svg.appendChild(mk('circle',{cx:SVG_CX,cy:SVG_CY,r:4,fill:'#10002B'}));
+  // Axis labels
+  const mkT=(x,y,t)=>{const el=mk('text',{x,y,'font-size':11,fill:'#6B7280','text-anchor':'middle'});el.textContent=t;return el;};
+  svg.appendChild(mkT(SVG_CX+SVG_R+18,SVG_CY+4,'1'));
+  svg.appendChild(mkT(SVG_CX-SVG_R-14,SVG_CY+4,'-1'));
+  svg.appendChild(mkT(SVG_CX,12,'1'));
+  svg.appendChild(mkT(SVG_CX,SVG_H-4,'-1'));
+}
+
+function quizAnswer(chosen) {
+  if (quizState.answered) return;
+  quizState.answered=true;
+  quizState.total++;
+
+  const q = quizState.currentQ;
+  // For standard mode, correct answer is normalized 0-360
+  const correct = q.answerDeg !== undefined ? q.answerDeg : q.deg;
+  const ok = chosen===correct;
+  if(ok) quizState.ok++;
+
+  document.getElementById('q-ok').textContent=quizState.ok;
+  document.getElementById('q-tot').textContent=quizState.total;
+
+  // Color points
+  document.querySelectorAll('#quiz-svg circle[data-deg]').forEach(c=>{
+    const d=+c.getAttribute('data-deg');
+    c.setAttribute('fill',
+      d===correct ? '#06D6A0' :
+      d===chosen && !ok ? '#EF233C' : '#C7D2FE'
+    );
+  });
+
+  const res=document.getElementById('quiz-result');
+  res.className='quiz-result show '+(ok?'correct':'wrong');
+  document.getElementById('quiz-emo').textContent=ok?'🎉 正解！':'❌ 不正解';
+
+  // Show both the original question value and the correct degree
+  let rtxt = `正解: <strong>${correct}°</strong>`;
+  if (quizDiff==='standard' && q.deg!==correct) {
+    rtxt += ` （${q.deg}° を [0°, 360°) に正規化）`;
+  }
+  if (!ok) rtxt += `　あなたの回答: ${chosen}°`;
+  document.getElementById('quiz-rtxt').innerHTML=rtxt;
+  document.getElementById('quiz-next-btn').textContent='次の問題 →';
+}
+
+function quizNext() {
+  const prev = quizState.qIdx;
+  quizState.answered=false;
+  document.getElementById('quiz-result').className='quiz-result';
+  document.getElementById('quiz-next-btn').textContent='スキップ';
+  pickNewQuestion(prev);
+  drawQuizCircle();
+}
+
+function initQuiz() {
+  pickNewQuestion();
+  drawQuizCircle();
+}
+
+/* ══════════════════════════════════════════════
+   SIMULATOR
+══════════════════════════════════════════════ */
+let simAngleCumulative = 0;   // cumulative, unlimited
+let simDragging = false;
+let simPrevRaw = 0;           // last raw angle (0-360) for delta accumulation
+let simRafId = null;
+
+function initSim() {
+  const cv = document.getElementById('sim-canvas');
+  const dpr = window.devicePixelRatio || 1;
+  cv.width  = 330 * dpr;
+  cv.height = 330 * dpr;
+  cv.style.width  = '330px';
+  cv.style.height = '330px';
+  cv.addEventListener('mousedown', simStart);
+  cv.addEventListener('touchstart', simStartT, {passive: false});
+  simDraw();
+}
+
+function simDragOn() {
+  document.addEventListener('mousemove', simMove);
+  document.addEventListener('mouseup', simDragOff);
+  document.addEventListener('touchmove', simMoveT, {passive: false});
+  document.addEventListener('touchend', simDragOff);
+}
+function simDragOff() {
+  simDragging = false;
+  document.removeEventListener('mousemove', simMove);
+  document.removeEventListener('mouseup', simDragOff);
+  document.removeEventListener('touchmove', simMoveT);
+  document.removeEventListener('touchend', simDragOff);
+}
+
+// Convert client coords → angle from circle center (0=right, CCW positive)
+function simRawAngle(clientX, clientY) {
+  const cv   = document.getElementById('sim-canvas');
+  const rect = cv.getBoundingClientRect();
+  // Use CSS-pixel center (always 165,165 in a 330px canvas)
+  const x =  (clientX - rect.left)  - 165;
+  const y = -((clientY - rect.top)  - 165);
+  let deg = Math.atan2(y, x) * 180 / Math.PI;
+  if (deg < 0) deg += 360;
+  return deg;
+}
+
+function angleDelta(from, to) {
+  let d = to - from;
+  while (d >  180) d -= 360;
+  while (d < -180) d += 360;
+  return d;
+}
+
+function simApplyDelta(raw) {
+  const delta = angleDelta(simPrevRaw, raw);
+  simPrevRaw = raw;
+  // Snap to nearest 15°
+  simAngleCumulative = Math.round((simAngleCumulative + delta) / 15) * 15;
+  if (!simRafId) simRafId = requestAnimationFrame(() => { simRafId = null; simDraw(); });
+}
+
+function simStart(e) {
+  e.preventDefault();
+  simDragging = true;
+  simPrevRaw = simRawAngle(e.clientX, e.clientY);
+  simDragOn();
+}
+function simMove(e) {
+  simApplyDelta(simRawAngle(e.clientX, e.clientY));
+}
+function simStartT(e) {
+  e.preventDefault();
+  simDragging = true;
+  simPrevRaw = simRawAngle(e.touches[0].clientX, e.touches[0].clientY);
+  simDragOn();
+}
+function simMoveT(e) {
+  e.preventDefault();
+  simApplyDelta(simRawAngle(e.touches[0].clientX, e.touches[0].clientY));
+}
+
+function cumDegToRadTex(deg) {
+  if (deg === 0) return '0';
+  const sign = deg < 0 ? '-' : '';
+  const abs  = Math.abs(deg);
+  const g    = gcd(abs, 180);
+  const num  = abs / g, den = 180 / g;
+  return den === 1 ? `${sign}${num}\\pi`
+                   : `${sign}\\dfrac{${num}\\pi}{${den}}`;
+}
+
+function nearestFamous(cumDeg) {
+  const norm = ((cumDeg % 360) + 360) % 360;
+  return FAMOUS[norm] ? {angle: norm, data: FAMOUS[norm]} : null;
+}
+
+simDraw._lastCum = null;
+
+function simDraw() {
+  const cv = document.getElementById('sim-canvas');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const W   = cv.width, H = cv.height;   // physical pixels (330*dpr)
+  const cx  = W / 2,   cy = H / 2;
+  const r   = 122 * dpr;
+
+  const cum  = simAngleCumulative;
+  const norm = ((cum % 360) + 360) % 360;
+  const rad  = norm * Math.PI / 180;
+  const px   = cx + r * Math.cos(-rad);
+  const py   = cy + r * Math.sin(-rad);
+  const sinV = Math.sin(rad), cosV = Math.cos(rad), tanV = Math.tan(rad);
+
+  // ── Clear ──
+  ctx.clearRect(0, 0, W, H);
+
+  // Background
+  ctx.fillStyle = '#F5F7FF';
+  ctx.beginPath(); ctx.roundRect(0, 0, W, H, 10 * dpr); ctx.fill();
+
+  // Axes
+  ctx.strokeStyle = '#C7D2FE'; ctx.lineWidth = 1.5 * dpr;
+  ctx.beginPath(); ctx.moveTo(14*dpr, cy); ctx.lineTo(W-14*dpr, cy); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx, 14*dpr); ctx.lineTo(cx, H-14*dpr); ctx.stroke();
+
+  // Unit circle
+  ctx.strokeStyle = '#4361EE'; ctx.lineWidth = 1.8*dpr; ctx.globalAlpha = 0.4;
+  ctx.beginPath(); ctx.arc(cx, cy, r, 0, 2*Math.PI); ctx.stroke();
+  ctx.globalAlpha = 1;
+
+  // Arc indicator (orange, 0→angle)
+  if (norm !== 0) {
+    const arcR = 36 * dpr;
+    ctx.strokeStyle = '#F77F00'; ctx.lineWidth = 2.5*dpr;
+    ctx.beginPath();
+    ctx.arc(cx, cy, arcR, 0, -rad, norm > 180);
+    ctx.stroke();
+  }
+
+  // sin line (green dashed)
+  ctx.strokeStyle = '#06D6A0'; ctx.lineWidth = 2.8*dpr;
+  ctx.setLineDash([5*dpr, 3*dpr]);
+  ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(px, cy); ctx.stroke();
+
+  // cos line (purple dashed)
+  ctx.strokeStyle = '#7209B7';
+  ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(px, cy); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Radius
+  ctx.strokeStyle = '#4361EE'; ctx.lineWidth = 2.2*dpr;
+  ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(px, py); ctx.stroke();
+
+  // tan line
+  if (Math.abs(tanV) < 7) {
+    const tx  = cx + r;
+    const tyt = cy - r * tanV;
+    ctx.strokeStyle = '#EF233C'; ctx.lineWidth = 2*dpr; ctx.globalAlpha = 0.7;
+    ctx.setLineDash([3*dpr, 3*dpr]);
+    ctx.beginPath(); ctx.moveTo(tx, cy); ctx.lineTo(tx, tyt); ctx.stroke();
+    ctx.setLineDash([]); ctx.globalAlpha = 1;
+  }
+
+  // Point P
+  const pr = 14 * dpr;
+  ctx.shadowColor = 'rgba(67,97,238,0.5)'; ctx.shadowBlur = 8*dpr;
+  ctx.fillStyle = '#4361EE';
+  ctx.beginPath(); ctx.arc(px, py, pr, 0, 2*Math.PI); ctx.fill();
+  ctx.shadowBlur = 0;
+  ctx.strokeStyle = 'white'; ctx.lineWidth = 3*dpr;
+  ctx.beginPath(); ctx.arc(px, py, pr, 0, 2*Math.PI); ctx.stroke();
+  ctx.fillStyle = 'white';
+  ctx.font = `bold ${12*dpr}px sans-serif`;
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('P', px, py);
+
+  // Center dot
+  ctx.fillStyle = '#10002B';
+  ctx.beginPath(); ctx.arc(cx, cy, 4*dpr, 0, 2*Math.PI); ctx.fill();
+
+  // Labels
+  ctx.fillStyle = '#6B7280';
+  ctx.font = `${11*dpr}px sans-serif`; ctx.textBaseline = 'alphabetic';
+  ctx.textAlign = 'left';   ctx.fillText('1', cx+r+6*dpr, cy+4*dpr);
+  ctx.textAlign = 'center'; ctx.fillText('1', cx, 12*dpr);
+  ctx.font = `bold ${11*dpr}px sans-serif`;
+  ctx.fillStyle = '#06D6A0';
+  ctx.textAlign = cosV >= 0 ? 'left' : 'right';
+  ctx.fillText('sin', px+(cosV>=0?16:-16)*dpr, (py+cy)/2+4*dpr);
+  ctx.fillStyle = '#7209B7';
+  ctx.textAlign = 'center';
+  ctx.fillText('cos', (px+cx)/2, cy+(sinV>=0?18:-8)*dpr);
+
+  // ── Value panel: KaTeX only when angle changes ──
+  document.getElementById('sv-deg').textContent = cum + '°';
+  if (cum !== simDraw._lastCum) {
+    simDraw._lastCum = cum;
+    const famous = nearestFamous(cum);
+    document.getElementById('sv-rad').innerHTML = Kstr(cumDegToRadTex(cum));
+    const setVal = (id, numVal, famKey) => {
+      const el = document.getElementById(id);
+      if (famous && famous.data[famKey]) {
+        el.innerHTML = Kstr(famous.data[famKey]);
+      } else {
+        el.textContent = Math.abs(numVal) > 100 ? '∞' : numVal.toFixed(4);
+      }
+    };
+    setVal('sv-sin', sinV, 'sin');
+    setVal('sv-cos', cosV, 'cos');
+    setVal('sv-tan', tanV, 'tan');
+    const badge = document.getElementById('famous-badge');
+    if (famous) {
+      badge.classList.add('show');
+      document.getElementById('famous-text').innerHTML = `有名角 <strong>${famous.angle}°</strong> を検出！`;
+    } else {
+      badge.classList.remove('show');
+    }
+  }
+}
+
+/* ══════════════════════════════════════════════
+   FAMOUS TABLE
+══════════════════════════════════════════════ */
+function initFamous(){
+  const cont=document.getElementById('famous-table');
+  const angles=CANDIDATES_15.concat([360]);
+  angles.forEach(deg=>{
+    const d=FAMOUS[deg];
+    if(!d)return;
+    const row=document.createElement('div');
+    row.className='famous-row';
+    const degEl=document.createElement('div'); degEl.className='fdeg'; degEl.textContent=deg+'°'; row.appendChild(degEl);
+    const radEl=document.createElement('div'); radEl.className='frad';
+    katex.render(d.rad,radEl,{throwOnError:false}); row.appendChild(radEl);
+    ['sin','cos','tan'].forEach((fn,i)=>{
+      const colors=['#06D6A0','#7209B7','#EF233C'];
+      const cell=document.createElement('div'); cell.className='fcell';
+      const nm=document.createElement('div'); nm.className='fname'; nm.style.color=colors[i]; nm.textContent=fn; cell.appendChild(nm);
+      const vl=document.createElement('div'); vl.className='fval';
+      katex.render(d[fn],vl,{throwOnError:false}); cell.appendChild(vl);
+      row.appendChild(cell);
+    });
+    cont.appendChild(row);
+  });
+}
+
+/* ══════════════════════════════════════════════
+   GRAPH
+══════════════════════════════════════════════ */
+const GRAPH_COLORS = ['#4361EE','#EF233C','#06D6A0','#F77F00','#7209B7','#3A86FF','#FF006E','#8338EC'];
+let graphs = [];
+let gSelectedId = null;
+let gCurrentFn = 'sin';
+let gIdCounter = 0;
+let gAddMode = 'instant'; // 'instant' | 'anim'
+let gView = { xMin:-2*Math.PI, xMax:2*Math.PI, yMin:-3, yMax:3 };
+
+// Animation state
+let gAnimId = null;      // requestAnimationFrame id
+let gAnimAngle = 0;      // current angle in radians (0 → 2π)
+let gAnimGraph = null;   // graph being animated
+let gAnimPlaying = false;
+let gAnimSpeed = 1;
+let gAnimPoints = [];    // traced points so far
+
+function gSelectFn(btn, fn) {
+  document.querySelectorAll('.fn-sel').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  gCurrentFn = fn;
+  gUpdateFormula();
+}
+
+function gSetAddMode(btn, mode) {
+  document.querySelectorAll('.g-add-mode-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  gAddMode = mode;
+  document.getElementById('g-anim-controls').style.display = mode==='anim' ? 'block' : 'none';
+  if(mode==='anim'){
+    gUpdateFormula();   // 数式更新
+    gPreviewStart();    // 即プレビュー開始
+  } else {
+    gPreviewStop(); gDrawCanvas();
+  }
+}
+
+function gReadFrac(idN, idD) {
+  const n = parseInt(document.getElementById(idN).value) || 0;
+  const d = Math.max(1, Math.abs(parseInt(document.getElementById(idD).value) || 1));
+  return { n, d, val: n/d };
+}
+function gSetFrac(idN, idD, n, d) {
+  document.getElementById(idN).value = n;
+  document.getElementById(idD).value = d;
+}
+
+function gcd2(a,b){ return b===0?a:gcd2(b,a%b); }
+function simplifyFrac(n,d){
+  if(n===0) return {n:0,d:1};
+  const g=gcd2(Math.abs(n),Math.abs(d));
+  let sn=n/g, sd=d/g;
+  if(sd<0){sn=-sn;sd=-sd;}
+  return {n:sn,d:sd};
+}
+
+// ── Formula TeX generation ──────────────────────────────────────────────
+function gFormulaTeX(fn, an,ad, bn,bd, cn,cd, dn,dd) {
+  const aS = simplifyFrac(an,ad);
+  const bS = simplifyFrac(bn,bd);
+  const cS = simplifyFrac(cn,cd);
+  const dS = simplifyFrac(dn,dd);
+
+  // a coefficient
+  let aStr = '';
+  if(aS.n===0) return `0`; // whole thing is 0
+  else if(aS.d===1){ if(aS.n===1) aStr=''; else if(aS.n===-1) aStr='-'; else aStr=`${aS.n}`; }
+  else { const sg=aS.n<0?'-':''; aStr=`${sg}\\dfrac{${Math.abs(aS.n)}}{${aS.d}}`; }
+
+  // b·θ inside parenthesis
+  let innerB = '';
+  if(bS.n===0) innerB='0';
+  else if(bS.d===1){ if(bS.n===1) innerB='\\theta'; else if(bS.n===-1) innerB='-\\theta'; else innerB=`${bS.n}\\theta`; }
+  else { const sg=bS.n<0?'-':''; innerB=`${sg}\\dfrac{${Math.abs(bS.n)}}{${bS.d}}\\theta`; }
+
+  // phase: cπ/d  → display as (bθ ± cπ/d) or (bθ ± cπ) etc.
+  let phaseStr = '';
+  if(cS.n!==0){
+    const sign = cS.n>0 ? '+' : '-';
+    const absN = Math.abs(cS.n);
+    if(cS.d===1) phaseStr = `${sign}${absN===1?'':absN}\\pi`;
+    else phaseStr = `${sign}\\dfrac{${absN===1?'':absN}\\pi}{${cS.d}}`;
+  }
+
+  // d shift
+  let dStr='';
+  if(dS.n!==0){
+    if(dS.d===1) dStr = dS.n>0 ? `+${dS.n}` : `${dS.n}`;
+    else { const sg=dS.n>0?'+':'-'; dStr=`${sg}\\dfrac{${Math.abs(dS.n)}}{${dS.d}}`; }
+  }
+
+  const inner = cS.n===0 ? innerB : `${innerB}${phaseStr}`;
+  return `${aStr}\\${fn}\\left(${inner}\\right)${dStr}`;
+}
+
+function gUpdateFormula() {
+  const p = { a:gReadFrac('gi-an','gi-ad'), b:gReadFrac('gi-bn','gi-bd'),
+              c:gReadFrac('gi-cn','gi-cd'), d:gReadFrac('gi-dn','gi-dd') };
+  const el = document.getElementById('g-formula-display');
+  try { katex.render('y = '+gFormulaTeX(gCurrentFn, p.a.n,p.a.d, p.b.n,p.b.d, p.c.n,p.c.d, p.d.n,p.d.d), el, {throwOnError:false}); }
+  catch(e){ el.textContent='y = ...'; }
+  if(gAddMode==='anim') gPreviewStart();
+}
+
+let gPreviewGraph=null, gPreviewAnimId=null, gPreviewAngle=0, gPreviewLastTime=null;
+
+function gPreviewStart(){
+  const p={ a:gReadFrac('gi-an','gi-ad'), b:gReadFrac('gi-bn','gi-bd'),
+            c:gReadFrac('gi-cn','gi-cd'), d:gReadFrac('gi-dn','gi-dd') };
+  gPreviewGraph={ id:-1, fn:gCurrentFn, color:'#4361EE',
+    an:p.a.n,ad:p.a.d,bn:p.b.n,bd:p.b.d,cn:p.c.n,cd:p.c.d,dn:p.d.n,dd:p.d.d };
+  if(gPreviewAnimId){cancelAnimationFrame(gPreviewAnimId);gPreviewAnimId=null;}
+  gPreviewAngle=0; gAnimPoints=[];
+
+  // Show dual canvases
+  const dual=document.getElementById('g-anim-dual');
+  dual.style.display='flex';
+  document.getElementById('graph-canvas').style.display='none';
+  const dpr=window.devicePixelRatio||1;
+  const cardW=dual.parentElement.clientWidth-20;
+  const csz=Math.round(cardW*0.38);
+  const circ=document.getElementById('g-circle-canvas');
+  circ.width=csz*dpr; circ.height=csz*dpr;
+  circ.style.width=csz+'px'; circ.style.height=csz+'px';
+  const gsz=cardW-csz-6;
+  const gcv=document.getElementById('g-anim-graph-canvas');
+  gcv.width=gsz*dpr; gcv.height=csz*dpr;
+  gcv.style.width=gsz+'px'; gcv.style.height=csz+'px';
+
+  // Draw static: unit circle at start position
+  const g=gPreviewGraph;
+  const b=g.bn/g.bd, cRad=(g.cn/g.cd)*Math.PI;
+  const startAngle=cRad; // θ=0 のスタート位置
+  const a=g.an/g.ad, d=g.dn/g.dd;
+  const mathFn=g.fn==='sin'?Math.sin:g.fn==='cos'?Math.cos:Math.tan;
+  const startVal=a*mathFn(startAngle)+d;
+  drawAnimCircle(g, startAngle, startVal);
+  drawAxesOnly(gcv); // グラフ側はx軸・y軸のみ
+
+  // ヒント表示
+  const cDeg=Math.round(((startAngle*180/Math.PI)%360+360)%360);
+  const vEl=document.getElementById('g-anim-val-display');
+  if(vEl) vEl.innerHTML=
+    `<span style="color:#4361EE;font-weight:700">スタート: ${cDeg}°</span>`
+    +`<span style="color:#EF233C">「＋追加」で再生 ▶</span>`;
+}
+
+
+function drawAxesOnly(cv){
+  if(!cv||!cv.width) return;
+  const ctx=cv.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  const W=cv.width, H=cv.height;
+  const {xMin,xMax,yMin,yMax}=gView;
+  const toX=t=>(t-xMin)/(xMax-xMin)*W;
+  const toY=v=>(1-(v-yMin)/(yMax-yMin))*H;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#F5F7FF'; ctx.fillRect(0,0,W,H);
+  // Grid
+  ctx.strokeStyle='#E0E7FF'; ctx.lineWidth=0.8*dpr;
+  const xStep=Math.PI/2;
+  for(let x=Math.ceil(xMin/xStep)*xStep;x<=xMax+0.001;x+=xStep){
+    const px=toX(x); ctx.beginPath();ctx.moveTo(px,0);ctx.lineTo(px,H);ctx.stroke();
+  }
+  for(let y=Math.ceil(yMin);y<=yMax;y++){
+    const py=toY(y); ctx.beginPath();ctx.moveTo(0,py);ctx.lineTo(W,py);ctx.stroke();
+  }
+  // Axes
+  ctx.strokeStyle='#9CA3AF'; ctx.lineWidth=1.5*dpr;
+  const ax0=toX(0), ay0=toY(0);
+  ctx.beginPath();ctx.moveTo(ax0,0);ctx.lineTo(ax0,H);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(0,ay0);ctx.lineTo(W,ay0);ctx.stroke();
+  // Labels
+  ctx.fillStyle='#6B7280'; ctx.font=`${9*dpr}px sans-serif`; ctx.textAlign='center';
+  for(let x=Math.ceil(xMin/xStep)*xStep;x<=xMax+0.001;x+=xStep){
+    const n=Math.round(x/(Math.PI/2));
+    const lbl=n===0?'0':n===2?'π':n===-2?'-π':n===4?'2π':n===-4?'-2π':(n%2===0?`${n/2}π`:`${n}π/2`);
+    ctx.fillText(lbl,toX(x),ay0>=0&&ay0<=H?ay0+10*dpr:H-3*dpr);
+  }
+  ctx.textAlign='right';
+  for(let y=Math.ceil(yMin);y<=yMax;y++){
+    if(y===0) continue;
+    ctx.fillText(y,ax0>=4?ax0-3*dpr:28*dpr,toY(y)+4*dpr);
+  }
+}
+
+
+function gPreviewFrame(ts){
+  if(!gPreviewGraph||gAddMode!=='anim'){ gPreviewAnimId=null; return; }
+  gPreviewAnimId=requestAnimationFrame(gPreviewFrame);
+  if(!ts) ts=performance.now();
+  if(!gPreviewLastTime) gPreviewLastTime=ts;
+  const dt=Math.min((ts-gPreviewLastTime)/1000,0.05);
+  gPreviewLastTime=ts;
+  const speed=parseFloat(document.getElementById('g-anim-speed').value)||1;
+  gPreviewAngle+=dt*speed*Math.PI;
+  const g=gPreviewGraph;
+  const a=g.an/g.ad,b=g.bn/g.bd,cRad=(g.cn/g.cd)*Math.PI,d=g.dn/g.dd;
+  const mathFn=g.fn==='sin'?Math.sin:g.fn==='cos'?Math.cos:Math.tan;
+  const circleAngle=b*gPreviewAngle+cRad;
+  const graphVal=a*mathFn(circleAngle)+d;
+  if(isFinite(graphVal)&&Math.abs(graphVal)<20) gAnimPoints.push({x:gPreviewAngle,y:graphVal});
+  drawAnimCircle(g,circleAngle,graphVal);
+  drawAnimGraph(g);
+  const tDeg=Math.round(gPreviewAngle*180/Math.PI);
+  const cDeg=Math.round(((circleAngle*180/Math.PI)%360+360)%360);
+  const vEl=document.getElementById('g-anim-val-display');
+  if(vEl) vEl.innerHTML=
+    `<span style="color:#4361EE;font-weight:700">θ = ${tDeg}°</span>`
+    +`<span style="color:#7209B7">bθ+c = ${cDeg}°</span>`
+    +`<span style="color:#EF233C;font-weight:700">y = ${isFinite(graphVal)?graphVal.toFixed(3):'∞'}</span>`;
+  if(gPreviewAngle>=2*Math.PI){ gPreviewAngle=0; gPreviewLastTime=null; gAnimPoints=[]; }
+}
+
+function gPreviewStop(){
+  if(gPreviewAnimId){cancelAnimationFrame(gPreviewAnimId);gPreviewAnimId=null;}
+  gPreviewGraph=null; gAnimPoints=[];
+  document.getElementById('g-anim-dual').style.display='none';
+  document.getElementById('graph-canvas').style.display='block';
+}
+
+
+function gCreate() {
+  const p = { a:gReadFrac('gi-an','gi-ad'), b:gReadFrac('gi-bn','gi-bd'),
+              c:gReadFrac('gi-cn','gi-cd'), d:gReadFrac('gi-dn','gi-dd') };
+  const color = GRAPH_COLORS[gIdCounter % GRAPH_COLORS.length];
+  const g = { id:gIdCounter++, fn:gCurrentFn, color,
+    an:p.a.n, ad:p.a.d, bn:p.b.n, bd:p.b.d,
+    cn:p.c.n, cd:p.c.d, dn:p.d.n, dd:p.d.d };
+  graphs.push(g);
+
+  if(gAddMode==='anim'){
+    if(gPreviewAnimId){cancelAnimationFrame(gPreviewAnimId);gPreviewAnimId=null;}
+    gPreviewGraph=null;
+    document.getElementById('g-anim-dual').style.display='none';
+    document.getElementById('graph-canvas').style.display='block';
+    gAnimStart(g);
+  } else {
+    gRenderList();
+    gDrawCanvas();
+  }
+}
+
+function gClearAll(){
+  graphs=[]; gSelectedId=null;
+  gAnimStop();
+  document.getElementById('g-edit-panel').style.display='none';
+  document.getElementById('g-edit-label').style.display='none';
+  document.getElementById('g-anim-dual').style.display='none';
+  gRenderList(); gDrawCanvas();
+}
+
+function gDelete(id){
+  if(gAnimGraph && gAnimGraph.id===id) gAnimStop();
+  graphs=graphs.filter(g=>g.id!==id);
+  if(gSelectedId===id) gDeselect();
+  else { gRenderList(); gDrawCanvas(); }
+}
+
+function gSelect(id){
+  gSelectedId=id;
+  const g=graphs.find(x=>x.id===id);
+  if(!g) return;
+  document.querySelectorAll('.g-graph-item').forEach(el=>el.classList.remove('selected'));
+  document.querySelector(`.g-graph-item[data-id="${id}"]`)?.classList.add('selected');
+  document.getElementById('g-edit-panel').style.display='block';
+  document.getElementById('g-edit-label').style.display='block';
+  document.getElementById('g-edit-name').textContent=`y = ${g.fn}(…)`;
+  gSetFrac('ge-an','ge-ad',g.an,g.ad); gSetFrac('ge-bn','ge-bd',g.bn,g.bd);
+  gSetFrac('ge-cn','ge-cd',g.cn,g.cd); gSetFrac('ge-dn','ge-dd',g.dn,g.dd);
+  gRefreshEditFormula(); gDrawCanvas();
+}
+
+function gDeselect(){
+  gSelectedId=null;
+  document.querySelectorAll('.g-graph-item').forEach(el=>el.classList.remove('selected'));
+  document.getElementById('g-edit-panel').style.display='none';
+  document.getElementById('g-edit-label').style.display='none';
+  gRenderList(); gDrawCanvas();
+}
+
+function gEditInput(){
+  const g=graphs.find(x=>x.id===gSelectedId); if(!g) return;
+  const p={ a:gReadFrac('ge-an','ge-ad'), b:gReadFrac('ge-bn','ge-bd'),
+            c:gReadFrac('ge-cn','ge-cd'), d:gReadFrac('ge-dn','ge-dd') };
+  g.an=p.a.n; g.ad=p.a.d; g.bn=p.b.n; g.bd=p.b.d;
+  g.cn=p.c.n; g.cd=p.c.d; g.dn=p.d.n; g.dd=p.d.d;
+  gRefreshEditFormula(); gRenderList(); gDrawCanvas();
+  // アニメーション中のグラフが編集されたらリセットして再スタート
+  if(gAnimGraph && gAnimGraph.id===g.id){
+    gAnimAngle=0; gAnimPoints=[]; gAnimLastTime=null;
+  }
+}
+
+function gRefreshEditFormula(){
+  const g=graphs.find(x=>x.id===gSelectedId); if(!g) return;
+  try { katex.render('y='+gFormulaTeX(g.fn,g.an,g.ad,g.bn,g.bd,g.cn,g.cd,g.dn,g.dd),
+    document.getElementById('ge-formula'),{throwOnError:false}); } catch(e){}
+}
+
+function gGraphVal(g,t){
+  const a=g.an/g.ad, b=g.bn/g.bd, c=(g.cn/g.cd)*Math.PI, d=g.dn/g.dd;
+  const f=g.fn==='sin'?Math.sin:g.fn==='cos'?Math.cos:Math.tan;
+  return a*f(b*t+c)+d;
+}
+
+function gRenderList(){
+  const cont=document.getElementById('g-list'); cont.innerHTML='';
+  graphs.forEach(g=>{
+    const item=document.createElement('div');
+    item.className='g-graph-item'+(g.id===gSelectedId?' selected':'');
+    item.dataset.id=g.id;
+    const dot=document.createElement('div'); dot.className='g-dot'; dot.style.background=g.color; item.appendChild(dot);
+    const tex=document.createElement('div'); tex.className='g-item-tex';
+    try{ katex.render('y='+gFormulaTeX(g.fn,g.an,g.ad,g.bn,g.bd,g.cn,g.cd,g.dn,g.dd),tex,{throwOnError:false}); }
+    catch(e){ tex.textContent='y=...'; }
+    item.appendChild(tex);
+    const del=document.createElement('button'); del.className='g-del'; del.textContent='✕';
+    del.onclick=(e)=>{ e.stopPropagation(); gDelete(g.id); }; item.appendChild(del);
+    item.addEventListener('click',()=>gSelect(g.id));
+    cont.appendChild(item);
+  });
+}
+
+// ── Main canvas draw ─────────────────────────────────────────────────────
+function gDrawCanvas(){
+  const canvas=document.getElementById('graph-canvas');
+  if(!canvas) return;
+  const dpr=window.devicePixelRatio||1;
+  const W=canvas.parentElement.clientWidth-20;
+  const H=Math.round(W*0.55);
+  canvas.width=W*dpr; canvas.height=H*dpr;
+  canvas.style.width=W+'px'; canvas.style.height=H+'px';
+  const ctx=canvas.getContext('2d');
+  ctx.scale(dpr,dpr);
+  const {xMin,xMax,yMin,yMax}=gView;
+  const toX=t=>(t-xMin)/(xMax-xMin)*W;
+  const toY=v=>(1-(v-yMin)/(yMax-yMin))*H;
+
+  ctx.fillStyle='#F5F7FF'; ctx.fillRect(0,0,W,H);
+
+  // Grid
+  ctx.strokeStyle='#E0E7FF'; ctx.lineWidth=1;
+  const xStep=Math.PI/2;
+  for(let x=Math.ceil(xMin/xStep)*xStep;x<=xMax+0.001;x+=xStep){
+    const px=toX(x); ctx.beginPath();ctx.moveTo(px,0);ctx.lineTo(px,H);ctx.stroke();
+  }
+  for(let y=Math.ceil(yMin);y<=yMax;y++){
+    const py=toY(y); ctx.beginPath();ctx.moveTo(0,py);ctx.lineTo(W,py);ctx.stroke();
+  }
+
+  // Axes
+  ctx.strokeStyle='#9CA3AF'; ctx.lineWidth=1.5;
+  const ax0=toX(0),ay0=toY(0);
+  if(ax0>=0&&ax0<=W){ctx.beginPath();ctx.moveTo(ax0,0);ctx.lineTo(ax0,H);ctx.stroke();}
+  if(ay0>=0&&ay0<=H){ctx.beginPath();ctx.moveTo(0,ay0);ctx.lineTo(W,ay0);ctx.stroke();}
+
+  // Labels
+  ctx.fillStyle='#6B7280'; ctx.font='10px sans-serif'; ctx.textAlign='center';
+  for(let x=Math.ceil(xMin/xStep)*xStep;x<=xMax+0.001;x+=xStep){
+    const px=toX(x),py2=ay0>=0&&ay0<=H?ay0+12:H-4;
+    const n=Math.round(x/(Math.PI/2));
+    let lbl=n===0?'0':n===2?'π':n===-2?'-π':n===4?'2π':n===-4?'-2π':(n%2===0?`${n/2}π`:`${n}π/2`);
+    ctx.fillText(lbl,px,py2);
+  }
+  ctx.textAlign='right';
+  for(let y=Math.ceil(yMin);y<=yMax;y++){
+    if(y===0) continue;
+    ctx.fillText(y,ax0>=4?ax0-3:32,toY(y)+4);
+  }
+
+  // Draw graphs (full lines)
+  graphs.forEach(g=>{
+    const isSel=g.id===gSelectedId;
+    ctx.strokeStyle=g.color; ctx.lineWidth=isSel?3.5:2;
+    ctx.setLineDash(isSel?[6,3]:[]); ctx.shadowColor=isSel?g.color:'transparent'; ctx.shadowBlur=isSel?8:0;
+    const steps=W*2; let started=false,prevPy=null;
+    ctx.beginPath();
+    for(let i=0;i<=steps;i++){
+      const t=xMin+(xMax-xMin)*i/steps;
+      const val=gGraphVal(g,t);
+      const px=toX(t),py=toY(val);
+      if(!isFinite(val)||Math.abs(val)>500){started=false;prevPy=null;continue;}
+      if(g.fn==='tan'&&prevPy!==null&&Math.abs(py-prevPy)>H*0.6){started=false;}
+      if(!started){ctx.moveTo(px,py);started=true;} else ctx.lineTo(px,py);
+      prevPy=py;
+    }
+    ctx.stroke(); ctx.setLineDash([]); ctx.shadowBlur=0;
+  });
+
+  // Draw animated trace on top
+  if(gAnimGraph && gAnimPoints.length>1){
+    ctx.strokeStyle=gAnimGraph.color; ctx.lineWidth=2.5; ctx.setLineDash([]);
+    ctx.beginPath();
+    gAnimPoints.forEach((pt,i)=>{ if(i===0) ctx.moveTo(toX(pt.x),toY(pt.y)); else ctx.lineTo(toX(pt.x),toY(pt.y)); });
+    ctx.stroke();
+    // current dot
+    const last=gAnimPoints[gAnimPoints.length-1];
+    ctx.fillStyle=gAnimGraph.color;
+    ctx.beginPath(); ctx.arc(toX(last.x),toY(last.y),5,0,2*Math.PI); ctx.fill();
+  }
+}
+
+// ── Animation ────────────────────────────────────────────────────────────
+const GANIM_CX=72, GANIM_CY=72, GANIM_R=55;
+
+function gAnimStart(g){
+  gAnimStop();
+  gAnimGraph=g; gAnimAngle=0; gAnimPoints=[]; gAnimPlaying=true;
+  gAnimLastTime=null;
+  // Show anim overlay
+  document.getElementById('g-anim-dual').style.display='block';
+  // Size circle canvas: height matches graph canvas height, width = height (square)
+  const dpr=window.devicePixelRatio||1;
+  const graphCv=document.getElementById('graph-canvas');
+  // Wait one frame for graph canvas to be sized
+  requestAnimationFrame(()=>{
+    const gh=graphCv.offsetHeight||180; // CSS height
+    const csz=Math.round(gh*0.45);     // circle = 45% of graph height
+    const cv=document.getElementById('g-circle-canvas');
+    cv.width=csz*dpr; cv.height=csz*dpr;
+    cv.style.width=csz+'px'; cv.style.height=csz+'px';
+    gAnimId=requestAnimationFrame(gAnimFrame);
+  });
+}
+
+
+
+function gAnimStop(){
+  if(gAnimId){ cancelAnimationFrame(gAnimId); gAnimId=null; }
+  gAnimPlaying=false; gAnimGraph=null; gAnimPoints=[];
+  document.getElementById('g-anim-dual').style.display='none';
+}
+
+let gAnimLastTime=null;
+function gAnimFrame(ts){
+  if(!gAnimPlaying||!gAnimGraph){ gAnimId=null; return; }
+  // ts can be undefined on first call – guard it
+  if(!ts) ts=performance.now();
+  if(!gAnimLastTime) gAnimLastTime=ts;
+  const dt=Math.min((ts-gAnimLastTime)/1000, 0.05);
+  gAnimLastTime=ts;
+  gAnimId=requestAnimationFrame(gAnimFrame);
+
+  const g=gAnimGraph;
+  const speed=parseFloat(document.getElementById('g-anim-speed').value)||1;
+  gAnimAngle += dt * speed * Math.PI; // θ が 0 → 2π
+
+  const a=g.an/g.ad, b=g.bn/g.bd, cRad=(g.cn/g.cd)*Math.PI, d=g.dn/g.dd;
+  const mathFn=g.fn==='sin'?Math.sin:g.fn==='cos'?Math.cos:Math.tan;
+
+  // 円上の角度 = bθ + c  ← 位相シフトを反映してスタート位置を合わせる
+  const circleAngle = b * gAnimAngle + cRad;
+
+  // グラフの値
+  const graphVal = a * mathFn(circleAngle) + d;
+  if(isFinite(graphVal) && Math.abs(graphVal)<20){
+    gAnimPoints.push({x: gAnimAngle, y: graphVal});
+  }
+
+  // 描画
+  drawAnimCircle(g, circleAngle, graphVal);
+  drawAnimGraph(g);
+
+  // 値表示
+  const thetaDeg = Math.round(gAnimAngle * 180 / Math.PI);
+  const circleDeg = Math.round(((circleAngle * 180 / Math.PI) % 360 + 360) % 360);
+  const vEl = document.getElementById('g-anim-val-display');
+  if(vEl){
+    vEl.innerHTML =
+      `<span style="color:#4361EE;font-weight:700">θ = ${thetaDeg}°</span>`
+      +`<span style="color:#7209B7">bθ+c = ${circleDeg}°</span>`
+      +`<span style="color:#EF233C;font-weight:700">y = ${isFinite(graphVal)?graphVal.toFixed(3):'∞'}</span>`;
+  }
+
+  if(gAnimAngle >= 2*Math.PI){
+    gAnimPlaying=false; gAnimAngle=2*Math.PI;
+    if(gAnimId){cancelAnimationFrame(gAnimId);gAnimId=null;}
+    gRenderList(); gDrawCanvas();
+    // Keep dual visible to show completed trace
+  }
+}
+
+function drawAnimCircle(g, theta, val){
+  const cv=document.getElementById('g-circle-canvas'); if(!cv||!cv.width) return;
+  const ctx=cv.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  const W=cv.width, H=cv.height;
+
+  // グラフと同じスケール: 1単位 = H/yRange px
+  const {yMin, yMax} = gView;
+  const yRange = yMax - yMin;
+  const unit   = H / yRange;
+
+  // 振幅 a → 半径, 縦シフト d → 円の中心y
+  const a  = g.an / g.ad;
+  const d  = g.dn / g.dd;
+  const r  = Math.abs(a) * unit;
+  const cx = W / 2;
+  const cy0 = (1 - (0 - yMin) / yRange) * H;  // y=0 の位置
+  const cy  = (1 - (d - yMin) / yRange) * H;   // y=d の位置（円の中心）
+
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#F5F7FF'; ctx.fillRect(0,0,W,H);
+
+  // グリッド線
+  ctx.strokeStyle='#E8EEFF'; ctx.lineWidth=0.8*dpr;
+  for(let yi=Math.ceil(yMin);yi<=yMax;yi++){
+    const py2=(1-(yi-yMin)/yRange)*H;
+    ctx.beginPath();ctx.moveTo(4*dpr,py2);ctx.lineTo(W-4*dpr,py2);ctx.stroke();
+  }
+
+  // y=0 軸
+  ctx.strokeStyle='#C7D2FE'; ctx.lineWidth=1.2*dpr;
+  ctx.beginPath();ctx.moveTo(4*dpr,cy0);ctx.lineTo(W-4*dpr,cy0);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx,4*dpr);ctx.lineTo(cx,H-4*dpr);ctx.stroke();
+
+  // d≠0: 中心線ガイド
+  if(Math.abs(d)>0.01){
+    ctx.strokeStyle=g.color; ctx.lineWidth=1*dpr; ctx.globalAlpha=0.3;
+    ctx.setLineDash([4*dpr,3*dpr]);
+    ctx.beginPath();ctx.moveTo(4*dpr,cy);ctx.lineTo(W-4*dpr,cy);ctx.stroke();
+    ctx.setLineDash([]); ctx.globalAlpha=1;
+  }
+
+  // 円（振幅=半径）
+  ctx.strokeStyle=g.color; ctx.lineWidth=1.8*dpr; ctx.globalAlpha=0.5;
+  ctx.beginPath();ctx.arc(cx,cy,r,0,2*Math.PI);ctx.stroke();
+  ctx.globalAlpha=1;
+
+  // 半径線
+  const norm=((theta%(2*Math.PI))+(2*Math.PI))%(2*Math.PI);
+  const px=cx+r*Math.cos(-norm), py=cy+r*Math.sin(-norm);
+  ctx.strokeStyle=g.color; ctx.lineWidth=2*dpr;
+  ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(px,py);ctx.stroke();
+
+  // 射影線
+  ctx.strokeStyle=g.color; ctx.lineWidth=1.5*dpr;
+  ctx.setLineDash([4*dpr,3*dpr]); ctx.globalAlpha=0.6;
+  if(g.fn==='sin'){
+    ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(px,cy);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(W-4*dpr,py);ctx.stroke();
+  } else if(g.fn==='cos'){
+    ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(cx,py);ctx.stroke();
+  }
+  ctx.setLineDash([]); ctx.globalAlpha=1;
+
+  // 点P
+  ctx.fillStyle=g.color;
+  ctx.shadowColor=g.color; ctx.shadowBlur=5*dpr;
+  ctx.beginPath();ctx.arc(px,py,6*dpr,0,2*Math.PI);ctx.fill();
+  ctx.shadowBlur=0;
+  ctx.strokeStyle='white'; ctx.lineWidth=2*dpr;
+  ctx.beginPath();ctx.arc(px,py,6*dpr,0,2*Math.PI);ctx.stroke();
+  ctx.fillStyle='white'; ctx.font=`bold ${7*dpr}px sans-serif`;
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText('P',px,py);
+
+  // 中心点
+  ctx.fillStyle='#6B7280';
+  ctx.beginPath();ctx.arc(cx,cy,3*dpr,0,2*Math.PI);ctx.fill();
+
+  // y軸ラベル
+  ctx.fillStyle='#9CA3AF'; ctx.font=`${8*dpr}px sans-serif`;
+  ctx.textAlign='right'; ctx.textBaseline='middle';
+  for(let yi=Math.ceil(yMin);yi<=yMax;yi++){
+    if(yi===0) continue;
+    ctx.fillText(yi, cx-5*dpr, (1-(yi-yMin)/yRange)*H);
+  }
+}
+
+function drawAnimGraph(g){
+  const cv=document.getElementById('g-anim-graph-canvas'); if(!cv||!cv.width) return;
+  const ctx=cv.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  const W=cv.width, H=cv.height;
+  // ── 静的グラフと同じ gView を使用 ──
+  const {xMin,xMax,yMin,yMax}=gView;
+  const toX=t=>(t-xMin)/(xMax-xMin)*W;
+  const toY=v=>(1-(v-yMin)/(yMax-yMin))*H;
+
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#F5F7FF'; ctx.fillRect(0,0,W,H);
+
+  // Grid (π/2 刻み)
+  ctx.strokeStyle='#E0E7FF'; ctx.lineWidth=0.8*dpr;
+  const xStep=Math.PI/2;
+  for(let x=Math.ceil(xMin/xStep)*xStep; x<=xMax+0.001; x+=xStep){
+    const px2=toX(x); ctx.beginPath();ctx.moveTo(px2,0);ctx.lineTo(px2,H);ctx.stroke();
+  }
+  for(let y=Math.ceil(yMin);y<=yMax;y++){
+    const py2=toY(y); ctx.beginPath();ctx.moveTo(0,py2);ctx.lineTo(W,py2);ctx.stroke();
+  }
+
+  // 軸
+  ctx.strokeStyle='#9CA3AF'; ctx.lineWidth=1.2*dpr;
+  const ax0=toX(0), ay0=toY(0);
+  if(ax0>=0&&ax0<=W){ctx.beginPath();ctx.moveTo(ax0,0);ctx.lineTo(ax0,H);ctx.stroke();}
+  if(ay0>=0&&ay0<=H){ctx.beginPath();ctx.moveTo(0,ay0);ctx.lineTo(W,ay0);ctx.stroke();}
+
+  // x軸ラベル
+  ctx.fillStyle='#6B7280'; ctx.font=`${9*dpr}px sans-serif`; ctx.textAlign='center';
+  for(let x=Math.ceil(xMin/xStep)*xStep; x<=xMax+0.001; x+=xStep){
+    const n=Math.round(x/(Math.PI/2));
+    const lbl=n===0?'0':n===2?'π':n===-2?'-π':n===4?'2π':n===-4?'-2π':(n%2===0?`${n/2}π`:`${n}π/2`);
+    const py2=ay0>=0&&ay0<=H?ay0+10*dpr:H-3*dpr;
+    ctx.fillText(lbl,toX(x),py2);
+  }
+  // y軸ラベル
+  ctx.textAlign='right';
+  for(let y=Math.ceil(yMin);y<=yMax;y++){
+    if(y===0) continue;
+    ctx.fillText(y, ax0>=4?ax0-3*dpr:28*dpr, toY(y)+4*dpr);
+  }
+
+  // 既存グラフを薄く描画（参考線）
+  graphs.forEach(gr=>{
+    if(gr.id===g.id) return; // アニメ中のグラフは除外
+    ctx.strokeStyle=gr.color+'60'; ctx.lineWidth=1.5*dpr; ctx.setLineDash([4*dpr,3*dpr]);
+    const steps=W; let started=false, prevPy=null;
+    ctx.beginPath();
+    for(let i=0;i<=steps;i++){
+      const t=xMin+(xMax-xMin)*i/steps;
+      const val=gGraphVal(gr,t);
+      const px2=toX(t), py2=toY(val);
+      if(!isFinite(val)||Math.abs(val)>500){started=false;continue;}
+      if(gr.fn==='tan'&&prevPy!==null&&Math.abs(py2-prevPy)>H*0.6){started=false;}
+      if(!started){ctx.moveTo(px2,py2);started=true;} else ctx.lineTo(px2,py2);
+      prevPy=py2;
+    }
+    ctx.stroke(); ctx.setLineDash([]);
+  });
+
+  // アニメーション中のトレース
+  if(gAnimPoints.length>1){
+    ctx.strokeStyle=g.color; ctx.lineWidth=2.5*dpr; ctx.setLineDash([]);
+    ctx.beginPath();
+    gAnimPoints.forEach((pt,i)=>{
+      const px2=toX(pt.x), py2=toY(pt.y);
+      if(i===0) ctx.moveTo(px2,py2); else ctx.lineTo(px2,py2);
+    });
+    ctx.stroke();
+    // 現在地ドット
+    const last=gAnimPoints[gAnimPoints.length-1];
+    ctx.fillStyle=g.color;
+    ctx.shadowColor=g.color; ctx.shadowBlur=6*dpr;
+    ctx.beginPath();ctx.arc(toX(last.x),toY(last.y),5*dpr,0,2*Math.PI);ctx.fill();
+    ctx.shadowBlur=0;
+  }
+}
+
+function initGraph(){
+  gUpdateFormula();
+  setTimeout(gDrawCanvas,50);
+  document.getElementById('graph-canvas').addEventListener('click',e=>{
+    const canvas=e.currentTarget;
+    const rect=canvas.getBoundingClientRect();
+    const mx=e.clientX-rect.left,my=e.clientY-rect.top;
+    const W=canvas.offsetWidth,H=canvas.offsetHeight;
+    const {xMin,xMax,yMin,yMax}=gView;
+    const tx=xMin+(xMax-xMin)*mx/W;
+    let bestId=null,bestDist=24;
+    graphs.forEach(g=>{
+      const val=gGraphVal(g,tx);
+      if(!isFinite(val)) return;
+      const py=(1-(val-yMin)/(yMax-yMin))*H;
+      const dist=Math.abs(py-my);
+      if(dist<bestDist){bestDist=dist;bestId=g.id;}
+    });
+    if(bestId!==null) gSelect(bestId); else gDeselect();
+  });
+}
+
+/* ══════════════════════════════════════════════
+   PRACTICE
+══════════════════════════════════════════════ */
+
+const PR_R = 118;
+const PR_CANDS = Array.from({length:24}, (_,i)=>i*15);
+
+// ── Question banks ────────────────────────────
+
+const EQ_VALS = [
+  {fn:'sin', valTex:'\\dfrac{1}{2}',            val:0.5,              ans:[30,150]},
+  {fn:'sin', valTex:'\\dfrac{\\sqrt{2}}{2}',    val:Math.SQRT2/2,     ans:[45,135]},
+  {fn:'sin', valTex:'\\dfrac{\\sqrt{3}}{2}',    val:Math.sqrt(3)/2,   ans:[60,120]},
+  {fn:'sin', valTex:'1',                         val:1,                ans:[90]},
+  {fn:'sin', valTex:'0',                         val:0,                ans:[0,180]},
+  {fn:'sin', valTex:'-\\dfrac{1}{2}',           val:-0.5,             ans:[210,330]},
+  {fn:'sin', valTex:'-\\dfrac{\\sqrt{2}}{2}',   val:-Math.SQRT2/2,    ans:[225,315]},
+  {fn:'sin', valTex:'-\\dfrac{\\sqrt{3}}{2}',   val:-Math.sqrt(3)/2,  ans:[240,300]},
+  {fn:'sin', valTex:'-1',                        val:-1,               ans:[270]},
+  {fn:'cos', valTex:'\\dfrac{1}{2}',            val:0.5,              ans:[60,300]},
+  {fn:'cos', valTex:'\\dfrac{\\sqrt{2}}{2}',    val:Math.SQRT2/2,     ans:[45,315]},
+  {fn:'cos', valTex:'\\dfrac{\\sqrt{3}}{2}',    val:Math.sqrt(3)/2,   ans:[30,330]},
+  {fn:'cos', valTex:'1',                         val:1,                ans:[0]},
+  {fn:'cos', valTex:'0',                         val:0,                ans:[90,270]},
+  {fn:'cos', valTex:'-\\dfrac{1}{2}',           val:-0.5,             ans:[120,240]},
+  {fn:'cos', valTex:'-\\dfrac{\\sqrt{2}}{2}',   val:-Math.SQRT2/2,    ans:[135,225]},
+  {fn:'cos', valTex:'-\\dfrac{\\sqrt{3}}{2}',   val:-Math.sqrt(3)/2,  ans:[150,210]},
+  {fn:'cos', valTex:'-1',                        val:-1,               ans:[180]},
+  {fn:'tan', valTex:'1',                         val:1,                ans:[45,225]},
+  {fn:'tan', valTex:'\\sqrt{3}',                 val:Math.sqrt(3),     ans:[60,240]},
+  {fn:'tan', valTex:'\\dfrac{1}{\\sqrt{3}}',    val:1/Math.sqrt(3),   ans:[30,210]},
+  {fn:'tan', valTex:'0',                         val:0,                ans:[0,180]},
+  {fn:'tan', valTex:'-1',                        val:-1,               ans:[135,315]},
+  {fn:'tan', valTex:'-\\sqrt{3}',                val:-Math.sqrt(3),    ans:[120,300]},
+];
+
+// Compute which 15°-step angles satisfy fn op val
+function computeIneqAns(fn, op, val) {
+  const ans = [];
+  PR_CANDS.forEach(d => {
+    const r = d * Math.PI / 180;
+    const v = fn==='sin' ? Math.sin(r) : fn==='cos' ? Math.cos(r) : Math.tan(r);
+    const ok = op==='>='  ? v >= val - 1e-9
+             : op==='<='  ? v <= val + 1e-9
+             : op==='>'   ? v >  val + 1e-9
+             : op==='<'   ? v <  val - 1e-9
+             : false;
+    if (ok) ans.push(d);
+  });
+  return ans;
+}
+
+const INEQ_VALS = [
+  {fn:'sin', op:'>=', opTex:'\\geqq', valTex:'\\dfrac{1}{2}',            val:0.5},
+  {fn:'sin', op:'<=', opTex:'\\leqq', valTex:'\\dfrac{1}{2}',            val:0.5},
+  {fn:'sin', op:'>',  opTex:'>',      valTex:'0',                         val:0},
+  {fn:'sin', op:'<',  opTex:'<',      valTex:'0',                         val:0},
+  {fn:'sin', op:'>=', opTex:'\\geqq', valTex:'\\dfrac{\\sqrt{2}}{2}',    val:Math.SQRT2/2},
+  {fn:'sin', op:'<=', opTex:'\\leqq', valTex:'-\\dfrac{\\sqrt{2}}{2}',   val:-Math.SQRT2/2},
+  {fn:'sin', op:'>=', opTex:'\\geqq', valTex:'\\dfrac{\\sqrt{3}}{2}',    val:Math.sqrt(3)/2},
+  {fn:'cos', op:'>=', opTex:'\\geqq', valTex:'\\dfrac{1}{2}',            val:0.5},
+  {fn:'cos', op:'<=', opTex:'\\leqq', valTex:'-\\dfrac{1}{2}',           val:-0.5},
+  {fn:'cos', op:'>',  opTex:'>',      valTex:'0',                         val:0},
+  {fn:'cos', op:'<',  opTex:'<',      valTex:'0',                         val:0},
+  {fn:'cos', op:'>=', opTex:'\\geqq', valTex:'\\dfrac{\\sqrt{3}}{2}',    val:Math.sqrt(3)/2},
+  {fn:'cos', op:'<=', opTex:'\\leqq', valTex:'-\\dfrac{\\sqrt{3}}{2}',   val:-Math.sqrt(3)/2},
+].map(q => ({ ...q, ans: computeIneqAns(q.fn, q.op, q.val) }));
+
+const COMP_VALS = [
+  {a:1,  b:1,           R:Math.SQRT2,    Rtex:'\\sqrt{2}',  phi:45,  phiTex:'45°'},
+  {a:Math.sqrt(3), b:1, R:2,             Rtex:'2',          phi:30,  phiTex:'30°'},
+  {a:1,  b:Math.sqrt(3),R:2,             Rtex:'2',          phi:60,  phiTex:'60°'},
+  {a:-1, b:1,           R:Math.SQRT2,    Rtex:'\\sqrt{2}',  phi:135, phiTex:'135°'},
+  {a:1,  b:-1,          R:Math.SQRT2,    Rtex:'\\sqrt{2}',  phi:315, phiTex:'-45°(315°)'},
+];
+
+const ADD_VALS = [
+  {tex:'\\sin 75°',  expand:'\\sin(45°+30°)', ans:'\\dfrac{\\sqrt{6}+\\sqrt{2}}{4}',
+   choices:['\\dfrac{\\sqrt{6}+\\sqrt{2}}{4}','\\dfrac{\\sqrt{6}-\\sqrt{2}}{4}','\\dfrac{\\sqrt{3}+1}{2}','\\dfrac{1}{2}']},
+  {tex:'\\sin 15°',  expand:'\\sin(45°-30°)', ans:'\\dfrac{\\sqrt{6}-\\sqrt{2}}{4}',
+   choices:['\\dfrac{\\sqrt{6}-\\sqrt{2}}{4}','\\dfrac{\\sqrt{6}+\\sqrt{2}}{4}','\\dfrac{\\sqrt{3}-1}{2}','\\dfrac{1}{4}']},
+  {tex:'\\cos 75°',  expand:'\\cos(45°+30°)', ans:'\\dfrac{\\sqrt{6}-\\sqrt{2}}{4}',
+   choices:['\\dfrac{\\sqrt{6}-\\sqrt{2}}{4}','\\dfrac{\\sqrt{6}+\\sqrt{2}}{4}','\\dfrac{\\sqrt{3}-1}{2}','\\dfrac{1}{2}']},
+  {tex:'\\cos 15°',  expand:'\\cos(45°-30°)', ans:'\\dfrac{\\sqrt{6}+\\sqrt{2}}{4}',
+   choices:['\\dfrac{\\sqrt{6}+\\sqrt{2}}{4}','\\dfrac{\\sqrt{6}-\\sqrt{2}}{4}','\\dfrac{\\sqrt{3}+1}{2}','\\dfrac{3}{4}']},
+  {tex:'\\sin 105°', expand:'\\sin(60°+45°)', ans:'\\dfrac{\\sqrt{6}+\\sqrt{2}}{4}',
+   choices:['\\dfrac{\\sqrt{6}+\\sqrt{2}}{4}','\\dfrac{\\sqrt{6}-\\sqrt{2}}{4}','\\dfrac{\\sqrt{3}+1}{4}','\\dfrac{\\sqrt{2}}{2}']},
+  {tex:'\\cos 105°', expand:'\\cos(60°+45°)', ans:'\\dfrac{\\sqrt{2}-\\sqrt{6}}{4}',
+   choices:['\\dfrac{\\sqrt{2}-\\sqrt{6}}{4}','\\dfrac{\\sqrt{6}+\\sqrt{2}}{4}','-\\dfrac{\\sqrt{3}+1}{4}','\\dfrac{\\sqrt{2}-1}{2}']},
+];
+
+// ── State ─────────────────────────────────────
+let pracMode = 'eq';
+let pracQ = null;
+let pracAnswered = false;
+let pracHintShown = false;
+let pracScore = {ok:0, tot:0};
+let eqSelected = [];
+let ineqSelected = new Set();
+let ineqDragging = false;
+let ineqLastPainted = null;
+let compRCorrect = false;
+
+// ── Mode switch ───────────────────────────────
+function pracSetMode(btn, mode) {
+  document.querySelectorAll('.prac-mode-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  pracMode = mode;
+  pracNewQuestion();
+}
+
+function pracNewQuestion() {
+  pracAnswered = false;
+  pracHintShown = false;
+  eqSelected = [];
+  ineqSelected = new Set();
+  ineqDragging = false;
+  ineqLastPainted = null;
+  compRCorrect = false;
+  document.getElementById('pr-result').className = 'quiz-result';
+  document.getElementById('pr-next').textContent = 'スキップ';
+  document.getElementById('pr-substep').style.display = 'none';
+  document.getElementById('pr-hint-btn').style.display = 'none';
+
+  if      (pracMode==='eq')   { pracQ = EQ_VALS  [Math.floor(Math.random()*EQ_VALS.length)];   setupEq(); }
+  else if (pracMode==='ineq') { pracQ = INEQ_VALS [Math.floor(Math.random()*INEQ_VALS.length)]; setupIneq(); }
+  else if (pracMode==='comp') { pracQ = COMP_VALS [Math.floor(Math.random()*COMP_VALS.length)]; setupComp(); }
+  else if (pracMode==='add')  { pracQ = ADD_VALS  [Math.floor(Math.random()*ADD_VALS.length)];  setupAdd(); }
+}
+
+function pracNext() { pracNewQuestion(); }
+
+function pracShowHint() {
+  pracHintShown = true;
+  document.getElementById('pr-hint-btn').textContent = '💡 ヒント表示中';
+  document.getElementById('pr-hint-btn').style.opacity = '0.6';
+  pracDrawCanvas();
+}
+
+function pracShowResult(ok, correctHTML) {
+  if (pracAnswered) return;
+  pracAnswered = true;
+  pracScore.tot++;
+  if (ok) pracScore.ok++;
+  document.getElementById('pr-ok').textContent  = pracScore.ok;
+  document.getElementById('pr-tot').textContent = pracScore.tot;
+  const res = document.getElementById('pr-result');
+  res.className = 'quiz-result show ' + (ok ? 'correct' : 'wrong');
+  document.getElementById('pr-emo').textContent = ok ? '🎉 正解！' : '❌ 不正解';
+  document.getElementById('pr-rtxt').innerHTML  = correctHTML || '';
+  document.getElementById('pr-next').textContent = '次の問題 →';
+  pracHintShown = true; // show answer on canvas
+  pracDrawCanvas();
+}
+
+// ── Canvas helpers ────────────────────────────
+function pracInitCanvas() {
+  const cv = document.getElementById('prac-canvas');
+  const dpr = window.devicePixelRatio || 1;
+  cv.width  = 330 * dpr;
+  cv.height = 330 * dpr;
+  cv.style.width  = '330px';
+  cv.style.height = '330px';
+}
+
+function prCanvasCoords(clientX, clientY) {
+  const cv = document.getElementById('prac-canvas');
+  const rect = cv.getBoundingClientRect();
+  const dpr  = window.devicePixelRatio || 1;
+  return [(clientX - rect.left) * dpr, (clientY - rect.top) * dpr];
+}
+
+function prNearestCandidate(mx, my) {
+  const cv  = document.getElementById('prac-canvas');
+  const dpr = window.devicePixelRatio || 1;
+  const cx  = cv.width/2, cy = cv.height/2, r = PR_R * dpr;
+  let best = null, bestD = 24 * dpr;
+  PR_CANDS.forEach(d => {
+    const rad = d * Math.PI / 180;
+    const px = cx + r * Math.cos(-rad);
+    const py = cy + r * Math.sin(-rad);
+    const dist = Math.hypot(mx - px, my - py);
+    if (dist < bestD) { bestD = dist; best = d; }
+  });
+  return best;
+}
+
+function pracDrawCanvas() {
+  const cv  = document.getElementById('prac-canvas');
+  const ctx = cv.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const W = cv.width, H = cv.height;
+  const cx = W/2, cy = H/2, r = PR_R * dpr;
+
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = '#F5F7FF';
+  ctx.beginPath(); ctx.roundRect(0,0,W,H,10*dpr); ctx.fill();
+
+  // Axes
+  ctx.strokeStyle='#C7D2FE'; ctx.lineWidth=1.5*dpr;
+  ctx.beginPath(); ctx.moveTo(14*dpr,cy); ctx.lineTo(W-14*dpr,cy); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx,14*dpr); ctx.lineTo(cx,H-14*dpr); ctx.stroke();
+
+  // Circle
+  ctx.strokeStyle='#C7D2FE'; ctx.lineWidth=1.8*dpr;
+  ctx.beginPath(); ctx.arc(cx,cy,r,0,2*Math.PI); ctx.stroke();
+
+  // Hint line (only when hint shown)
+  if (pracHintShown && (pracMode==='eq' || pracMode==='ineq')) drawHintLine(ctx,cx,cy,r,dpr);
+
+  // Mode-specific points
+  if      (pracMode==='eq')   drawEqPoints  (ctx,cx,cy,r,dpr);
+  else if (pracMode==='ineq') drawIneqPoints(ctx,cx,cy,r,dpr);
+  else                        drawSimpleCircle(ctx,cx,cy,r,dpr);
+
+  // Axis labels
+  ctx.fillStyle='#9CA3AF'; ctx.font=`${10*dpr}px sans-serif`;
+  ctx.textAlign='left';    ctx.textBaseline='alphabetic';
+  ctx.fillText('1',  cx+r+4*dpr,  cy-3*dpr);
+  ctx.fillText('-1', cx-r-22*dpr, cy-3*dpr);
+  ctx.textAlign='center';
+  ctx.fillText('1',  cx,  12*dpr);
+  ctx.fillText('-1', cx,  H-3*dpr);
+  ctx.fillText('O',  cx-9*dpr, cy+14*dpr);
+  ctx.fillStyle='#6B7280';
+  ctx.beginPath(); ctx.arc(cx,cy,3*dpr,0,2*Math.PI); ctx.fill();
+}
+
+function drawHintLine(ctx, cx, cy, r, dpr) {
+  const q = pracQ;
+  const val = q.val;
+  ctx.save();
+  ctx.setLineDash([6*dpr, 4*dpr]);
+  ctx.lineWidth = 2*dpr;
+  if (q.fn === 'sin') {
+    const ly = cy - val * r;
+    ctx.strokeStyle = '#4361EE80';
+    ctx.beginPath(); ctx.moveTo(14*dpr, ly); ctx.lineTo(cx*2-14*dpr, ly); ctx.stroke();
+  } else if (q.fn === 'cos') {
+    const lx = cx + val * r;
+    ctx.strokeStyle = '#7209B780';
+    ctx.beginPath(); ctx.moveTo(lx, 14*dpr); ctx.lineTo(lx, cy*2-14*dpr); ctx.stroke();
+  } else {
+    ctx.strokeStyle = '#EF233C80';
+    ctx.beginPath(); ctx.moveTo(cx - r, cy + val*r); ctx.lineTo(cx + r, cy - val*r); ctx.stroke();
+  }
+  ctx.setLineDash([]);
+  ctx.restore();
+}
+
+function drawSimpleCircle(ctx, cx, cy, r, dpr) {
+  PR_CANDS.forEach(d => {
+    const rad = d * Math.PI / 180;
+    const px = cx + r * Math.cos(-rad), py = cy + r * Math.sin(-rad);
+    ctx.fillStyle = '#E0E7FF';
+    ctx.beginPath(); ctx.arc(px, py, 8*dpr, 0, 2*Math.PI); ctx.fill();
+  });
+}
+
+// ── ① EQUATION ───────────────────────────────
+function setupEq() {
+  katex.render(`\\${pracQ.fn}\\,\\theta = ${pracQ.valTex}\\quad(0°\\leqq\\theta<360°)`,
+    document.getElementById('pr-question'), {throwOnError:false});
+  document.getElementById('pr-hint').textContent =
+    `交点をすべてタップしてください（${pracQ.ans.length}個）`;
+  document.getElementById('pr-hint-btn').style.display = 'inline-block';
+  document.getElementById('pr-hint-btn').textContent = '💡 ヒントを見る';
+  document.getElementById('pr-hint-btn').style.opacity = '1';
+  pracInitCanvas(); pracDrawCanvas();
+  const cv = document.getElementById('prac-canvas');
+  cv.onclick = eqHandleClick;
+  cv.onmousedown = null; cv.onmousemove = null; cv.onmouseup = null;
+  cv.ontouchstart = null; cv.ontouchmove = null; cv.ontouchend = null;
+}
+
+function drawEqPoints(ctx, cx, cy, r, dpr) {
+  PR_CANDS.forEach(d => {
+    const rad = d * Math.PI / 180;
+    const px = cx + r * Math.cos(-rad), py = cy + r * Math.sin(-rad);
+    const isSel = eqSelected.includes(d);
+    const isAns = pracQ.ans.includes(d);
+    let fill = '#E0E7FF';
+    if (pracAnswered && isAns)  fill = '#06D6A0';
+    else if (isSel)             fill = '#4361EE';
+    ctx.fillStyle = fill;
+    ctx.beginPath(); ctx.arc(px, py, 10*dpr, 0, 2*Math.PI); ctx.fill();
+    if (isSel || (pracAnswered && isAns)) {
+      ctx.strokeStyle='white'; ctx.lineWidth=2*dpr;
+      ctx.beginPath(); ctx.arc(px, py, 10*dpr, 0, 2*Math.PI); ctx.stroke();
+    }
+    ctx.fillStyle = (isSel || (pracAnswered && isAns)) ? 'white' : '#9CA3AF';
+    ctx.font = `${7.5*dpr}px sans-serif`;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(d + '°', px, py);
+  });
+}
+
+function eqHandleClick(e) {
+  if (pracAnswered) return;
+  const [mx, my] = prCanvasCoords(e.clientX, e.clientY);
+  const best = prNearestCandidate(mx, my);
+  if (best === null) return;
+  const idx = eqSelected.indexOf(best);
+  if (idx >= 0) eqSelected.splice(idx, 1);
+  else eqSelected.push(best);
+  pracDrawCanvas();
+  if (eqSelected.length === pracQ.ans.length) {
+    const ok = JSON.stringify([...eqSelected].sort((a,b)=>a-b)) ===
+               JSON.stringify([...pracQ.ans].sort((a,b)=>a-b));
+    pracShowResult(ok, `正解: θ = ${pracQ.ans.join('°, ')}°`);
+  }
+}
+
+// ── ② INEQUALITY ─────────────────────────────
+function setupIneq() {
+  katex.render(`\\${pracQ.fn}\\,\\theta ${pracQ.opTex} ${pracQ.valTex}\\quad(0°\\leqq\\theta<360°)`,
+    document.getElementById('pr-question'), {throwOnError:false});
+  document.getElementById('pr-hint').textContent =
+    '条件を満たす点をタップ・またはドラッグして塗り、「決定」を押してください';
+  document.getElementById('pr-hint-btn').style.display = 'inline-block';
+  document.getElementById('pr-hint-btn').textContent = '💡 ヒントを見る';
+  document.getElementById('pr-hint-btn').style.opacity = '1';
+  ineqSelected = new Set();
+
+  // Confirm button
+  document.getElementById('pr-substep').style.display = 'block';
+  document.getElementById('pr-substep-content').innerHTML =
+    '<button onclick="ineqConfirm()" style="width:100%;background:var(--success);color:white;border:none;border-radius:10px;padding:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit">✔ この範囲で決定</button>';
+
+  pracInitCanvas(); pracDrawCanvas();
+
+  const cv = document.getElementById('prac-canvas');
+  cv.onclick = null;
+
+  // Tap
+  cv.onclick = ineqHandleTap;
+
+  // Drag (mouse)
+  cv.onmousedown = (e) => {
+    ineqDragging = true; ineqLastPainted = null;
+    const [mx,my] = prCanvasCoords(e.clientX, e.clientY);
+    const d = prNearestCandidate(mx, my);
+    if (d !== null) { ineqTogglePaint(d); ineqLastPainted = d; }
+  };
+  cv.onmousemove = (e) => {
+    if (!ineqDragging || pracAnswered) return;
+    const [mx,my] = prCanvasCoords(e.clientX, e.clientY);
+    const d = prNearestCandidate(mx, my);
+    if (d !== null && d !== ineqLastPainted) { ineqPaintOn(d); ineqLastPainted = d; }
+  };
+  cv.onmouseup = () => { ineqDragging = false; };
+
+  // Drag (touch)
+  cv.ontouchstart = (e) => {
+    e.preventDefault(); ineqDragging = true; ineqLastPainted = null;
+    const t = e.touches[0];
+    const [mx,my] = prCanvasCoords(t.clientX, t.clientY);
+    const d = prNearestCandidate(mx, my);
+    if (d !== null) { ineqTogglePaint(d); ineqLastPainted = d; }
+  };
+  cv.ontouchmove = (e) => {
+    e.preventDefault();
+    if (!ineqDragging || pracAnswered) return;
+    const t = e.touches[0];
+    const [mx,my] = prCanvasCoords(t.clientX, t.clientY);
+    const d = prNearestCandidate(mx, my);
+    if (d !== null && d !== ineqLastPainted) { ineqPaintOn(d); ineqLastPainted = d; }
+  };
+  cv.ontouchend = (e) => { e.preventDefault(); ineqDragging = false; };
+}
+
+function ineqHandleTap(e) {
+  if (pracAnswered || ineqDragging) return;
+  const [mx,my] = prCanvasCoords(e.clientX, e.clientY);
+  const d = prNearestCandidate(mx, my);
+  if (d !== null) ineqTogglePaint(d);
+}
+
+function ineqTogglePaint(d) {
+  if (ineqSelected.has(d)) ineqSelected.delete(d);
+  else ineqSelected.add(d);
+  pracDrawCanvas();
+}
+
+function ineqPaintOn(d) {
+  ineqSelected.add(d);
+  pracDrawCanvas();
+}
+
+function ineqConfirm() {
+  if (pracAnswered) return;
+  const ansSet = new Set(pracQ.ans);
+  const ok = [...ineqSelected].every(d => ansSet.has(d)) &&
+             pracQ.ans.every(d => ineqSelected.has(d));
+  pracShowResult(ok, `正解の点: ${pracQ.ans.join('°, ')}°`);
+}
+
+function drawIneqPoints(ctx, cx, cy, r, dpr) {
+  PR_CANDS.forEach(d => {
+    const rad = d * Math.PI / 180;
+    const px = cx + r * Math.cos(-rad), py = cy + r * Math.sin(-rad);
+    const isPainted = ineqSelected.has(d);
+    const isAns = pracQ.ans.includes(d);
+    let fill = '#E0E7FF';
+    if (pracAnswered && isAns)   fill = '#06D6A0';
+    else if (pracAnswered && isPainted && !isAns) fill = '#EF233C';
+    else if (isPainted)          fill = '#4361EE';
+    ctx.fillStyle = fill;
+    ctx.beginPath(); ctx.arc(px, py, 10*dpr, 0, 2*Math.PI); ctx.fill();
+    if (isPainted || (pracAnswered && isAns)) {
+      ctx.strokeStyle = 'white'; ctx.lineWidth = 2*dpr;
+      ctx.beginPath(); ctx.arc(px, py, 10*dpr, 0, 2*Math.PI); ctx.stroke();
+    }
+    ctx.fillStyle = (isPainted || (pracAnswered && isAns)) ? 'white' : '#9CA3AF';
+    ctx.font = `${7.5*dpr}px sans-serif`;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(d + '°', px, py);
+  });
+}
+
+// ── ④ SYNTHESIS ──────────────────────────────
+function setupComp() {
+  const q = pracQ;
+  katex.render(`${q.a}\\sin\\theta + ${q.b}\\cos\\theta = R\\sin(\\theta+\\varphi)`,
+    document.getElementById('pr-question'), {throwOnError:false});
+  document.getElementById('pr-hint').textContent = 'まず R を選び、次に φ を単位円でタップしてください';
+  document.getElementById('pr-hint-btn').style.display = 'none';
+
+  const allR = ['\\sqrt{2}','2','\\sqrt{3}','\\sqrt{5}','2\\sqrt{2}','1'];
+  const rChoices = [q.Rtex, ...allR.filter(v=>v!==q.Rtex)].slice(0,4);
+  rChoices.sort(()=>Math.random()-0.5);
+  let html = `<div style="font-size:12px;color:var(--muted);margin-bottom:8px">R を選択：</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px">`;
+  rChoices.forEach(tex => {
+    html += `<button onclick="compSelectR('${tex}','${q.Rtex}')"
+      style="padding:8px 18px;border-radius:10px;border:2px solid var(--border);background:white;font-family:inherit;cursor:pointer;font-size:14px">
+      ${katex.renderToString(tex,{throwOnError:false})}</button>`;
+  });
+  html += `</div><div id="comp-phi-prompt" style="font-size:12px;color:var(--muted);margin-top:8px;display:none">
+    φ を単位円でタップしてください</div>`;
+  document.getElementById('pr-substep').style.display='block';
+  document.getElementById('pr-substep-content').innerHTML=html;
+  compRCorrect=false;
+  pracInitCanvas(); pracDrawCanvas();
+  const cv=document.getElementById('prac-canvas');
+  cv.onclick=compHandleClick;
+  cv.onmousedown=null; cv.onmousemove=null; cv.onmouseup=null;
+  cv.ontouchstart=null; cv.ontouchmove=null; cv.ontouchend=null;
+}
+
+function compSelectR(chosen, correct) {
+  if (pracAnswered) return;
+  if (chosen !== correct) { pracShowResult(false, `R の正解: \\(${correct}\\)`); return; }
+  compRCorrect = true;
+  document.getElementById('comp-phi-prompt').style.display='block';
+}
+
+function compHandleClick(e) {
+  if (pracAnswered || !compRCorrect) return;
+  const [mx,my] = prCanvasCoords(e.clientX, e.clientY);
+  const best = prNearestCandidate(mx, my);
+  if (best===null) return;
+  const norm = ((pracQ.phi % 360)+360)%360;
+  pracShowResult(best===norm, `R = ${pracQ.Rtex},  φ = ${pracQ.phiTex}`);
+}
+
+// ── ⑤ ADDITION ───────────────────────────────
+function setupAdd() {
+  const q = pracQ;
+  katex.render(`${q.tex} = ${q.expand} = \\;?`,
+    document.getElementById('pr-question'), {throwOnError:false});
+  document.getElementById('pr-hint').textContent='展開して計算し、値を選んでください';
+  document.getElementById('pr-hint-btn').style.display='none';
+  let html=`<div style="display:flex;flex-direction:column;gap:8px">`;
+  [...q.choices].sort(()=>Math.random()-0.5).forEach(tex=>{
+    html+=`<button onclick="addSelect('${tex}','${q.ans}')"
+      style="padding:10px 16px;border-radius:10px;border:2px solid var(--border);background:white;font-family:inherit;cursor:pointer;font-size:15px;text-align:left">
+      ${katex.renderToString(tex,{throwOnError:false})}</button>`;
+  });
+  html+=`</div>`;
+  document.getElementById('pr-substep').style.display='block';
+  document.getElementById('pr-substep-content').innerHTML=html;
+  pracInitCanvas(); pracDrawCanvas();
+  const cv=document.getElementById('prac-canvas');
+  cv.onclick=null; cv.onmousedown=null; cv.onmousemove=null; cv.onmouseup=null;
+  cv.ontouchstart=null; cv.ontouchmove=null; cv.ontouchend=null;
+}
+
+function addSelect(chosen, correct) {
+  if (pracAnswered) return;
+  pracShowResult(chosen===correct, `正解: \\(${correct}\\)`);
+}
+
+// ── Init ─────────────────────────────────────
+function initPractice() {
+  pracInitCanvas();
+  pracNewQuestion();
+}
+
+/* ══════════════════════════════════════════════
+   PROP (三角関数の性質)
+══════════════════════════════════════════════ */
+
+const PROP_R = 118;
+let propType = 'neg';
+let propTheta = 45; // degrees
+
+// ── Property definitions ─────────────────────
+const PROP_TYPES = {
+  neg: {
+    title: '−θ の変換（x軸対称）',
+    transform: deg => -deg,
+    labelTex: '-\\theta',
+    color: '#EF233C',
+    rules: [
+      {tex: '\\sin(-\\theta) = -\\sin\\theta', note: 'y座標が反転'},
+      {tex: '\\cos(-\\theta) = \\cos\\theta',  note: 'x座標は変わらない'},
+      {tex: '\\tan(-\\theta) = -\\tan\\theta', note: '傾きが反転'},
+    ],
+    explain: 'θ と −θ は x軸に関して対称。y座標が逆になるのでsinは符号が変わり、x座標は同じなのでcosは変わらない。',
+  },
+  pluspi: {
+    title: 'θ+π の変換（原点対称）',
+    transform: deg => deg + 180,
+    labelTex: '\\theta+\\pi',
+    color: '#7209B7',
+    rules: [
+      {tex: '\\sin(\\theta+\\pi) = -\\sin\\theta', note: 'y座標が反転'},
+      {tex: '\\cos(\\theta+\\pi) = -\\cos\\theta', note: 'x座標が反転'},
+      {tex: '\\tan(\\theta+\\pi) = \\tan\\theta',  note: '傾きは同じ'},
+    ],
+    explain: 'θ+π は原点対称の位置。x座標もy座標も両方符号が反転するが、傾き（tan）は変わらない。',
+  },
+  minuspi: {
+    title: 'π−θ の変換（y軸対称）',
+    transform: deg => 180 - deg,
+    labelTex: '\\pi-\\theta',
+    color: '#06D6A0',
+    rules: [
+      {tex: '\\sin(\\pi-\\theta) = \\sin\\theta',  note: 'y座標は同じ'},
+      {tex: '\\cos(\\pi-\\theta) = -\\cos\\theta', note: 'x座標が反転'},
+      {tex: '\\tan(\\pi-\\theta) = -\\tan\\theta', note: '傾きが反転'},
+    ],
+    explain: 'π−θ は y軸に関して対称の位置。y座標は同じなのでsinは変わらず、x座標が逆になるのでcosは符号反転。',
+  },
+  pluspi2: {
+    title: 'θ+π/2 の変換（90°回転）',
+    transform: deg => deg + 90,
+    labelTex: '\\theta+\\dfrac{\\pi}{2}',
+    color: '#F77F00',
+    rules: [
+      {tex: '\\sin\\!\\left(\\theta+\\dfrac{\\pi}{2}\\right) = \\cos\\theta',  note: 'y座標 = 元のx座標'},
+      {tex: '\\cos\\!\\left(\\theta+\\dfrac{\\pi}{2}\\right) = -\\sin\\theta', note: 'x座標 = 元のy座標の反転'},
+      {tex: '\\tan\\!\\left(\\theta+\\dfrac{\\pi}{2}\\right) = -\\dfrac{1}{\\tan\\theta}', note: '傾きが逆数の符号反転'},
+    ],
+    explain: '90°回転すると、sinとcosが入れ替わる。直角三角形の合同から導ける。',
+  },
+  minuspi2: {
+    title: 'π/2−θ の変換（余角）',
+    transform: deg => 90 - deg,
+    labelTex: '\\dfrac{\\pi}{2}-\\theta',
+    color: '#3A86FF',
+    rules: [
+      {tex: '\\sin\\!\\left(\\dfrac{\\pi}{2}-\\theta\\right) = \\cos\\theta', note: '余角の関係'},
+      {tex: '\\cos\\!\\left(\\dfrac{\\pi}{2}-\\theta\\right) = \\sin\\theta', note: '余角の関係'},
+      {tex: '\\tan\\!\\left(\\dfrac{\\pi}{2}-\\theta\\right) = \\dfrac{1}{\\tan\\theta}', note: '逆数'},
+    ],
+    explain: '直角三角形で一方の角がθなら他方はπ/2−θ。sinとcosが入れ替わる（余角の関係）。',
+  },
+  period: {
+    title: 'θ+2nπ の変換（周期性）',
+    transform: deg => deg,
+    labelTex: '\\theta+2n\\pi',
+    color: '#4361EE',
+    rules: [
+      {tex: '\\sin(\\theta+2n\\pi) = \\sin\\theta', note: '1周して同じ位置'},
+      {tex: '\\cos(\\theta+2n\\pi) = \\cos\\theta', note: '1周して同じ位置'},
+      {tex: '\\tan(\\theta+2n\\pi) = \\tan\\theta', note: '1周して同じ位置'},
+    ],
+    explain: '2π（360°）回転すると完全に1周して元の位置に戻る。sinもcosもtanも値は変わらない。',
+  },
+};
+
+// ── Setup ─────────────────────────────────────
+function propSet(btn, type) {
+  document.querySelectorAll('.prop-type-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  propType = type;
+  propUpdateRules();
+  propDraw();
+}
+
+function propSlider(val) {
+  propTheta = parseInt(val);
+  document.getElementById('prop-deg-label').textContent = propTheta + '°';
+  propDraw();
+}
+
+function propUpdateRules() {
+  const pt = PROP_TYPES[propType];
+  document.getElementById('prop-rule-title').textContent = pt.title;
+  const cont = document.getElementById('prop-rules');
+  cont.innerHTML = '';
+  pt.rules.forEach(r => {
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:10px;background:#F5F7FF;border-radius:8px;padding:8px 12px';
+    const tex = document.createElement('div');
+    tex.style.flex = '1';
+    katex.render(r.tex, tex, {throwOnError:false, displayMode:false});
+    const note = document.createElement('div');
+    note.style.cssText = 'font-size:10px;color:var(--muted);text-align:right;min-width:80px';
+    note.textContent = r.note;
+    row.appendChild(tex); row.appendChild(note);
+    cont.appendChild(row);
+  });
+  // Explain text shown below
+}
+
+function propInitCanvas() {
+  const cv = document.getElementById('prop-canvas');
+  const dpr = window.devicePixelRatio || 1;
+  cv.width  = 330 * dpr;
+  cv.height = 330 * dpr;
+  cv.style.width  = '330px';
+  cv.style.height = '330px';
+  propUpdateRules();
+}
+
+// ── Drawing ───────────────────────────────────
+function propDraw() {
+  const cv = document.getElementById('prop-canvas');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const W = cv.width, H = cv.height;
+  const cx = W/2, cy = H/2, r = PROP_R * dpr;
+
+  const pt  = PROP_TYPES[propType];
+  const th  = propTheta;
+  const th2 = ((pt.transform(th) % 360) + 360) % 360;
+
+  const rad1 = th  * Math.PI / 180;
+  const rad2 = th2 * Math.PI / 180;
+
+  const px1 = cx + r * Math.cos(-rad1), py1 = cy + r * Math.sin(-rad1);
+  const px2 = cx + r * Math.cos(-rad2), py2 = cy + r * Math.sin(-rad2);
+
+  // Clear
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = '#F5F7FF';
+  ctx.beginPath(); ctx.roundRect(0,0,W,H,10*dpr); ctx.fill();
+
+  // Axes
+  ctx.strokeStyle = '#C7D2FE'; ctx.lineWidth = 1.5*dpr;
+  ctx.beginPath(); ctx.moveTo(14*dpr,cy); ctx.lineTo(W-14*dpr,cy); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx,14*dpr); ctx.lineTo(cx,H-14*dpr); ctx.stroke();
+
+  // Symmetry guide lines (dashed, subtle)
+  ctx.save(); ctx.setLineDash([5*dpr,5*dpr]); ctx.globalAlpha=0.2; ctx.lineWidth=1.5*dpr;
+  if (propType==='neg')     { ctx.strokeStyle='#888'; ctx.beginPath();ctx.moveTo(14*dpr,cy);ctx.lineTo(W-14*dpr,cy);ctx.stroke(); }
+  if (propType==='pluspi')  { ctx.strokeStyle='#888'; ctx.beginPath();ctx.arc(cx,cy,r/3,0,2*Math.PI);ctx.stroke(); }
+  if (propType==='minuspi') { ctx.strokeStyle='#888'; ctx.beginPath();ctx.moveTo(cx,14*dpr);ctx.lineTo(cx,H-14*dpr);ctx.stroke(); }
+  if (propType==='pluspi2'||propType==='minuspi2') {
+    ctx.strokeStyle='#888';
+    ctx.beginPath();ctx.moveTo(cx-r*0.8,cy+r*0.8);ctx.lineTo(cx+r*0.8,cy-r*0.8);ctx.stroke();
+  }
+  ctx.restore();
+
+  // Unit circle
+  ctx.strokeStyle = '#C7D2FE'; ctx.lineWidth = 1.8*dpr;
+  ctx.beginPath(); ctx.arc(cx,cy,r,0,2*Math.PI); ctx.stroke();
+
+  // Arc for theta (blue)
+  ctx.strokeStyle = '#4361EE'; ctx.lineWidth = 2.5*dpr; ctx.globalAlpha=0.5;
+  ctx.beginPath(); ctx.arc(cx,cy,r*0.25,0,-rad1,false);
+  ctx.stroke(); ctx.globalAlpha=1;
+
+  // Arc for transformed (colored)
+  ctx.strokeStyle = pt.color; ctx.lineWidth = 2.5*dpr; ctx.globalAlpha=0.4;
+  ctx.beginPath(); ctx.arc(cx,cy,r*0.35,0,-rad2,rad2>Math.PI);
+  ctx.stroke(); ctx.globalAlpha=1;
+
+  // Projection lines
+  const drawProjections = (px, py, color, alpha=0.4) => {
+    ctx.save(); ctx.setLineDash([4*dpr,3*dpr]); ctx.lineWidth=1.8*dpr;
+    ctx.strokeStyle=color; ctx.globalAlpha=alpha;
+    // vertical (sin)
+    ctx.beginPath(); ctx.moveTo(px,py); ctx.lineTo(px,cy); ctx.stroke();
+    // horizontal (cos)
+    ctx.beginPath(); ctx.moveTo(px,py); ctx.lineTo(cx,py); ctx.stroke();
+    ctx.restore();
+  };
+  drawProjections(px1,py1,'#4361EE',0.5);
+  drawProjections(px2,py2,pt.color,0.5);
+
+  // Radius lines
+  ctx.lineWidth = 2.2*dpr;
+  ctx.strokeStyle = '#4361EE';
+  ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(px1,py1); ctx.stroke();
+  ctx.strokeStyle = pt.color;
+  ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(px2,py2); ctx.stroke();
+
+  // Points
+  const drawPoint = (px, py, color, label) => {
+    ctx.shadowColor=color; ctx.shadowBlur=8*dpr;
+    ctx.fillStyle=color;
+    ctx.beginPath(); ctx.arc(px,py,12*dpr,0,2*Math.PI); ctx.fill();
+    ctx.shadowBlur=0;
+    ctx.strokeStyle='white'; ctx.lineWidth=2.5*dpr;
+    ctx.beginPath(); ctx.arc(px,py,12*dpr,0,2*Math.PI); ctx.stroke();
+    ctx.fillStyle='white'; ctx.font=`bold ${9*dpr}px sans-serif`;
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText(label,px,py);
+  };
+  drawPoint(px1,py1,'#4361EE','θ');
+  drawPoint(px2,py2,pt.color,propType==='period'?'θ':'θ\'');
+
+  // Center
+  ctx.fillStyle='#6B7280';
+  ctx.beginPath(); ctx.arc(cx,cy,3.5*dpr,0,2*Math.PI); ctx.fill();
+
+  // Axis labels
+  ctx.fillStyle='#9CA3AF'; ctx.font=`${10*dpr}px sans-serif`; ctx.textBaseline='alphabetic';
+  ctx.textAlign='left';   ctx.fillText('1',  cx+r+5*dpr, cy-3*dpr);
+  ctx.textAlign='right';  ctx.fillText('-1', cx-r-3*dpr, cy-3*dpr);
+  ctx.textAlign='center'; ctx.fillText('1',  cx, 11*dpr);
+  ctx.textAlign='center'; ctx.fillText('-1', cx, H-2*dpr);
+
+  // ── Update value panels ──
+  const sin1=Math.sin(rad1), cos1=Math.cos(rad1), tan1=Math.tan(rad1);
+  const sin2=Math.sin(rad2), cos2=Math.cos(rad2), tan2=Math.tan(rad2);
+  const norm1=((th%360)+360)%360, norm2=((th2%360)+360)%360;
+  const fam1=FAMOUS[norm1], fam2=FAMOUS[norm2];
+
+  document.getElementById('prop-orig-deg').textContent = th + '°';
+  document.getElementById('prop-trans-deg').textContent = th2 + '°';
+
+  const labelEl = document.getElementById('prop-trans-label');
+  labelEl.innerHTML = `変換後 <span id="prop-trans-deg" style="color:${pt.color};font-weight:700">${th2}°</span>`;
+
+  const renderVals = (elId, sin, cos, tan, fam) => {
+    const el = document.getElementById(elId);
+    el.innerHTML = '';
+    [['sin', sin, fam?.sin], ['cos', cos, fam?.cos], ['tan', tan, fam?.tan]].forEach(([fn,v,ft])=>{
+      const row = document.createElement('div');
+      row.style.cssText='display:flex;align-items:center;gap:6px;font-size:12px';
+      const lbl = document.createElement('span');
+      lbl.style.cssText='color:var(--muted);min-width:28px';
+      lbl.textContent=fn+' =';
+      const val = document.createElement('span');
+      val.style.fontWeight='600';
+      if(ft){ katex.render(ft,val,{throwOnError:false}); }
+      else{ val.textContent=Math.abs(v)>100?'∞':v.toFixed(4); }
+      row.appendChild(lbl); row.appendChild(val);
+      el.appendChild(row);
+    });
+  };
+  renderVals('prop-orig-vals', sin1, cos1, tan1, fam1);
+  renderVals('prop-trans-vals', sin2, cos2, tan2, fam2);
+}
+
+function initProp() {
+  propInitCanvas();
+  propDraw();
+  // Slider drag on mobile
+  document.getElementById('prop-slider').addEventListener('input', function(){ propSlider(this.value); });
+}
+
+/* ══════════════════════════════════════════════
+   BOOT
+══════════════════════════════════════════════ */
+window.addEventListener('DOMContentLoaded',()=>{
+  initHome();
+  initFormula();
+  initQuiz();
+  initSim();
+  initFamous();
+  initGraph();
+  initPractice();
+  initProp();
+});
+</script>
+</body>
+</html>
